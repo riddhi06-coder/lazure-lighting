@@ -31,6 +31,24 @@
                   </a>
                 </li>
 
+
+                
+                <li class="sidebar-list {{ request()->routeIs('manage-banner.index', 'new-arrivals.index', 'collection-details.index', 'shop-category.index', 'product-policies.index', 'testimonials.index', 'social-media.index', 'footer.index') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"> </i>
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon"> 
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-icons') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-icons') }}"></use>
+                    </svg>
+                    <span>Home page</span>
+                  </a>
+                  <ul class="sidebar-submenu">
+                    <li><a href="{{ route('manage-banner.index') }}" class="{{ request()->routeIs('manage-banner.index') ? 'active' : '' }}">Banner Details</a></li>
+                  </ul>
+                </li>
+
                 <li class="sidebar-list {{ request()->routeIs('manage-contact.index') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
                   <a class="sidebar-link" href="{{ route('manage-contact.index') }}">
@@ -43,6 +61,9 @@
                     <span>Contact Details</span>
                   </a>
                 </li>
+
+
+
 
               </ul>
               <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

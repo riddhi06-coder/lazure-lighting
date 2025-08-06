@@ -34,10 +34,20 @@
     
     <!-- Theme js-->
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+
+ 
 
     <script>new WOW().init();</script>
 
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+
+<script>
+  ClassicEditor.create(document.querySelector('#editor'))
+    .catch(error => { console.error(error); });
+</script>
+ 
 
 <script>
   $(document).ready(function() {

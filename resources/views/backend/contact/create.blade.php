@@ -77,7 +77,7 @@
                                         <!-- About Us -->
                                         <div class="col-md-12">
                                             <label class="form-label" for="about">About Us <span class="txt-danger">*</span></label>
-                                            <textarea class="form-control" id="summernote" name="about" placeholder="Enter About Us" required></textarea>
+                                            <textarea class="form-control" id="editor" name="about" placeholder="Enter About Us" required></textarea>
                                             <div class="invalid-feedback">Please enter an About Us.</div>
                                         </div>
 
@@ -150,7 +150,7 @@
                                         </div>
 
                                         <!-- Form Actions -->
-                                        <div class="col-md-12 text-end">
+                                        <div class="col-md-12 text-end mt-4">
                                             <a href="{{ route('manage-contact.index') }}" class="btn btn-danger px-4">Cancel</a>
                                             <button class="btn btn-primary" type="submit">Submit</button>
                                         </div>
@@ -245,41 +245,7 @@
 
 <!--- for address ----->
 <script>
-    let socialMediaIndex = 1;
     let locationIndex = 1;
-
-    // Add Social Media Row
-    document.getElementById('add-social-media-row').addEventListener('click', function () {
-        const tableBody = document.getElementById('social-media-table-body');
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td>
-                <select name="social_media[${socialMediaIndex}][platform]" class="form-control" required>
-                    <option value="">Select Platform</option>
-                    <option value="1">Facebook</option>
-                    <option value="2">Twitter</option>
-                    <option value="3">Instagram</option>
-                    <option value="4">LinkedIn</option>
-                    <option value="5">YouTube</option>
-                    <option value="6">Pintrest</option>
-                </select>
-            </td>
-            <td>
-                <input type="url" name="social_media[${socialMediaIndex}][link]" class="form-control" placeholder="Enter Social Media URL" required>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger remove-social-media-row">Remove</button>
-            </td>`;
-        tableBody.appendChild(newRow);
-        socialMediaIndex++;
-    });
-
-    // Remove Social Media Row
-    document.addEventListener('click', function (e) {
-        if (e.target && e.target.classList.contains('remove-social-media-row')) {
-            e.target.closest('tr').remove();
-        }
-    });
 
     // Add Location Row
     document.getElementById('add-location-row').addEventListener('click', function () {
