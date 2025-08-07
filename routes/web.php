@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\UserPermissionsController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\FeaturedProductsController;
+use App\Http\Controllers\Backend\AdvertiseController;
 
 use App\Http\Controllers\Frontend\HomeController;
 
@@ -44,8 +45,17 @@ Route::resource('manage-banner', BannerController::class);
 // ==== Manage Featured Products
 Route::resource('manage-featured-products', FeaturedProductsController::class);
 
+// ==== Manage Advertise
+Route::resource('manage-advertise', AdvertiseController::class);
+
 // ==== Manage Contact Details
 Route::resource('manage-contact', ContactController::class);
+
+
+
+
+
+
 
 
 Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHistoryMiddleware::class]],function(){

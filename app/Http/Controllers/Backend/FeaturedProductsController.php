@@ -29,7 +29,7 @@ class FeaturedProductsController extends Controller
         return view('backend.home.featured_prod.create');
     }
 
-     public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'section_heading' => 'nullable|string|max:255',
