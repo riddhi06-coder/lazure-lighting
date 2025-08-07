@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\AdvertiseController;
 use App\Http\Controllers\Backend\HomeCategoriesController;
 use App\Http\Controllers\Backend\ApplicationController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ProductController;
 
 use App\Http\Controllers\Frontend\HomeController;
 
@@ -47,9 +48,13 @@ Route::group(['middleware' => ['auth:web', \App\Http\Middleware\PreventBackHisto
 // ==== Manage application Details
 Route::resource('manage-application', ApplicationController::class);
 
-
 // ==== Manage category
 Route::resource('manage-category', CategoryController::class);
+
+// ==== Manage product
+Route::resource('manage-product', ProductController::class);
+Route::get('/get-categories/{applicationId}', [ProductController::class, 'getCategoriesByApplication'])->name('get.categories');
+
 
 
 // ==== Manage Banner Details

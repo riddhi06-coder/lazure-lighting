@@ -56,7 +56,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Category</th>
-                                    <th>Image</th>
+                                    <th>Thumbnail Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

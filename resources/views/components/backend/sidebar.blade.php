@@ -32,7 +32,7 @@
                 </li>
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-application.index', 'manage-category.index', 'product-fabrics.index', 'fabric-composition.index', 'product-sizes.index', 'product-prints.index', 'product-details.index') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-application.index', 'manage-category.index', 'manage-product.index', 'fabric-composition.index', 'product-sizes.index', 'product-prints.index', 'product-details.index') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"> </i>
                   <a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon"> 
@@ -46,6 +46,7 @@
                   <ul class="sidebar-submenu">
                     <li><a href="{{ route('manage-application.index') }}" class="{{ request()->routeIs('manage-application.index') ? 'active' : '' }}">Application Type</a></li>
                     <li><a href="{{ route('manage-category.index') }}" class="{{ request()->routeIs('manage-category.index') ? 'active' : '' }}">Category</a></li>
+                    <li><a href="{{ route('manage-product.index') }}" class="{{ request()->routeIs('manage-product.index') ? 'active' : '' }}">Products List</a></li>
                   </ul>
                 </li>
 
