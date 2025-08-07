@@ -13,7 +13,7 @@ use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\FeaturedProductsController;
 use App\Http\Controllers\Backend\AdvertiseController;
 use App\Http\Controllers\Backend\HomeCategoriesController;
-use App\Http\Controllers\Backend\ProductsController;
+use App\Http\Controllers\Backend\ApplicationController;
 
 
 use App\Http\Controllers\Frontend\HomeController;
@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth:web', \App\Http\Middleware\PreventBackHisto
 
 
 // ==== Manage Banner Details
-Route::resource('manage-products', ProductsController::class);
+Route::resource('manage-application', ApplicationController::class);
 
 
 // ==== Manage Banner Details
