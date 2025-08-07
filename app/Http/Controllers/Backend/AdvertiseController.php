@@ -101,6 +101,12 @@ class AdvertiseController extends Controller
 
             if ($request->hasFile('video_upload')) {
 
+                // Remove old video if it exists
+                $oldVideoPath = public_path('uploads/home/advertise/' . $advertise->video);
+                if (file_exists($oldVideoPath)) {
+                    @unlink($oldVideoPath);
+                }
+
                 $video = $request->file('video_upload');
                 $originalVideoName = $video->getClientOriginalName();
                 $videoName = time() . '_' . uniqid() . '.' . $video->getClientOriginalExtension();
