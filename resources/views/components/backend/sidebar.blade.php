@@ -46,6 +46,7 @@
                   </a>
                   <ul class="sidebar-submenu">
                     <li><a href="{{ route('manage-banner.index') }}" class="{{ request()->routeIs('manage-banner.index') ? 'active' : '' }}">Banner Details</a></li>
+                    <li><a href="{{ route('manage-featured-products.index') }}" class="{{ request()->routeIs('manage-featured-products.index') ? 'active' : '' }}">Featured Products</a></li>
                   </ul>
                 </li>
 

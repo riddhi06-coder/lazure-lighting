@@ -12,28 +12,27 @@ use Illuminate\Support\Str;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Banner;
+use App\Models\Featured;
 
 
-
-class BannerController extends Controller
+class FeaturedProductsController extends Controller
 {
 
     public function index()
     {
-        $banner = Banner::whereNull('deleted_by')->get(); 
-        return view('backend.home.banner.index', compact('banner'));
+        $products = Featured::whereNull('deleted_by')->get();
+        return view('backend.home.featured_prod.index', compact('products'));
     }
     
-
     public function create(Request $request)
     { 
-        return view('backend.home.banner.create');
+        return view('backend.home.featured_prod.create');
     }
 
-    public function store(Request $request)
+     public function store(Request $request)
     {
         $request->validate([
+            'section_heading' => 'nullable|string|max:255',
             'banner_heading' => 'required|string|max:255',
             'banner_title' => 'required|string|max:255',
             'banner_image' => 'required|max:3072',  
@@ -49,10 +48,11 @@ class BannerController extends Controller
         if ($request->hasFile('banner_image')) {
             $image = $request->file('banner_image');
             $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/home/banner'), $imageName);  
+            $image->move(public_path('uploads/home/featured'), $imageName);  
         }
     
-        $banner = new Banner();
+        $banner = new Featured();
+        $banner->section_heading = $request->input('section_heading');
         $banner->banner_heading = $request->input('banner_heading');
         $banner->banner_title = $request->input('banner_title');
         $banner->banner_images = $imageName;  
@@ -60,18 +60,19 @@ class BannerController extends Controller
         $banner->created_by = Auth::user()->id;
         $banner->save();  
     
-        return redirect()->route('manage-banner.index')->with('message', 'Banner has been successfully added!');
+        return redirect()->route('manage-featured-products.index')->with('message', 'Details successfully added!');
     }
 
     public function edit($id)
     {
-        $banner_details = Banner::findOrFail($id);
-        return view('backend.home.banner.edit', compact('banner_details'));
+        $banner_details = Featured::findOrFail($id);
+        return view('backend.home.featured_prod.edit', compact('banner_details'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
+            'section_heading' => 'nullable|string|max:255',
             'banner_heading' => 'required|string|max:255',
             'banner_title' => 'required|string|max:255',
             'banner_image' => 'nullable|max:3072',  
@@ -81,15 +82,16 @@ class BannerController extends Controller
             'banner_image.max' => 'The banner image must not be greater than 3MB.',
         ]);
 
-        $banner = Banner::findOrFail($id);  
+        $banner = Featured::findOrFail($id);  
 
         $imageName = $banner->banner_images;  
         if ($request->hasFile('banner_image')) {
             $image = $request->file('banner_image');
             $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('/uploads/home/banner'), $imageName);
+            $image->move(public_path('/uploads/home/featured'), $imageName);
         }
 
+        $banner->section_heading = $request->input('section_heading');
         $banner->banner_heading = $request->input('banner_heading');
         $banner->banner_title = $request->input('banner_title');
         $banner->banner_images = $imageName;  
@@ -97,22 +99,20 @@ class BannerController extends Controller
         $banner->modified_by = Auth::user()->id; 
         $banner->save();
 
-        return redirect()->route('manage-banner.index')->with('message', 'Banner has been successfully updated!');
+        return redirect()->route('manage-featured-products.index')->with('message', 'Details successfully updated!');
     }
-
 
     public function destroy(string $id)
     {
         $data['deleted_by'] =  Auth::user()->id;
         $data['deleted_at'] =  Carbon::now();
         try {
-            $industries = Banner::findOrFail($id);
+            $industries = Featured::findOrFail($id);
             $industries->update($data);
 
-            return redirect()->route('manage-banner.index')->with('message', 'Banner Details deleted successfully!');
+            return redirect()->route('manage-featured-products.index')->with('message', 'Details deleted successfully!');
         } catch (Exception $ex) {
             return redirect()->back()->with('error', 'Something Went Wrong - ' . $ex->getMessage());
         }
     }
-
 }

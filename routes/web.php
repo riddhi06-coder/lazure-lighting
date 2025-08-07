@@ -10,7 +10,7 @@ use App\Http\Controllers\Backend\UserDetailsController;
 use App\Http\Controllers\Backend\UserPermissionsController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\BannerController;
-
+use App\Http\Controllers\Backend\FeaturedProductsController;
 
 use App\Http\Controllers\Frontend\HomeController;
 
@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth:web', \App\Http\Middleware\PreventBackHisto
 // ==== Manage Banner Details
 Route::resource('manage-banner', BannerController::class);
 
+// ==== Manage Featured Products
+Route::resource('manage-featured-products', FeaturedProductsController::class);
 
 // ==== Manage Contact Details
 Route::resource('manage-contact', ContactController::class);
