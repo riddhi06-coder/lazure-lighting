@@ -32,8 +32,25 @@
                 </li>
 
 
+                <li class="sidebar-list {{ request()->routeIs('manage-products.index', 'product-category.index', 'product-fabrics.index', 'fabric-composition.index', 'product-sizes.index', 'product-prints.index', 'product-details.index') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"> </i>
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon"> 
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#cart') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#cart') }}"></use>
+                    </svg>
+                    <span>Products</span>
+                  </a>
+                  <ul class="sidebar-submenu">
+                    <li><a href="{{ route('manage-products.index') }}" class="{{ request()->routeIs('manage-products.index') ? 'active' : '' }}">Applications Types</a></li>
+                  </ul>
+                </li>
+
+
                 
-                <li class="sidebar-list {{ request()->routeIs('manage-banner.index', 'new-arrivals.index', 'collection-details.index', 'shop-category.index', 'product-policies.index', 'testimonials.index', 'social-media.index', 'footer.index') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-banner.index', 'manage-featured-products.index', 'manage-advertise.index', 'manage-advertise.index') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"> </i>
                   <a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon"> 
@@ -48,10 +65,13 @@
                     <li><a href="{{ route('manage-banner.index') }}" class="{{ request()->routeIs('manage-banner.index') ? 'active' : '' }}">Banner Details</a></li>
                     <li><a href="{{ route('manage-featured-products.index') }}" class="{{ request()->routeIs('manage-featured-products.index') ? 'active' : '' }}">Featured Products</a></li>
                     <li><a href="{{ route('manage-advertise.index') }}" class="{{ request()->routeIs('manage-advertise.index') ? 'active' : '' }}">Advertisement</a></li>
+                    <li><a href="{{ route('manage-advertise.index') }}" class="{{ request()->routeIs('manage-advertise.index') ? 'active' : '' }}">Category Details</a></li>
                   </ul>
                 </li>
 
-                
+
+
+
                 <li class="sidebar-list {{ request()->routeIs('manage-contact.index') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
                   <a class="sidebar-link" href="{{ route('manage-contact.index') }}">

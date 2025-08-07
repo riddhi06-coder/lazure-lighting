@@ -12,6 +12,9 @@ use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\FeaturedProductsController;
 use App\Http\Controllers\Backend\AdvertiseController;
+use App\Http\Controllers\Backend\HomeCategoriesController;
+use App\Http\Controllers\Backend\ProductsController;
+
 
 use App\Http\Controllers\Frontend\HomeController;
 
@@ -39,6 +42,12 @@ Route::group(['middleware' => ['auth:web', \App\Http\Middleware\PreventBackHisto
         })->name('admin.dashboard');
 });
 
+
+
+// ==== Manage Banner Details
+Route::resource('manage-products', ProductsController::class);
+
+
 // ==== Manage Banner Details
 Route::resource('manage-banner', BannerController::class);
 
@@ -47,6 +56,9 @@ Route::resource('manage-featured-products', FeaturedProductsController::class);
 
 // ==== Manage Advertise
 Route::resource('manage-advertise', AdvertiseController::class);
+
+// ==== Manage Advertise
+Route::resource('manage-home-categories', HomeCategoriesController::class);
 
 // ==== Manage Contact Details
 Route::resource('manage-contact', ContactController::class);
