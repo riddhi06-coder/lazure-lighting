@@ -70,7 +70,7 @@
                             <tbody>
                                 @forelse($products as $applicationType => $appProducts)
                                     {{-- Application Type Heading --}}
-                                    <tr style="background:#8f969d; font-weight:bold;">
+                                    <tr style="background:#eadfdf; font-weight:bold;">
                                         <td colspan="5">Application Type: {{ $applicationType ?? 'No Application Type' }}</td>
                                     </tr>
 
