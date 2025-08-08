@@ -20,32 +20,29 @@ use App\Models\SubProduct;
 class SubProductController extends Controller
 {
 
-  public function index()
-{
-    $subProducts = \DB::table('sub_products')
-        ->leftJoin('category', 'sub_products.category_id', '=', 'category.id')
-        ->leftJoin('products', 'sub_products.product_id', '=', 'products.id')
-        ->leftJoin('application_type', 'sub_products.application_id', '=', 'application_type.id')
-        ->select(
-            'sub_products.*',
-            'category.category',
-            'products.product as product_name',
-            'application_type.application_type'
-        )
-        ->get();
+     public function index()
+    {
+        $subProducts = \DB::table('sub_products')
+            ->leftJoin('category', 'sub_products.category_id', '=', 'category.id')
+            ->leftJoin('products', 'sub_products.product_id', '=', 'products.id')
+            ->leftJoin('application_type', 'sub_products.application_id', '=', 'application_type.id')
+            ->select(
+                'sub_products.*',
+                'category.category',
+                'products.product as product_name',
+                'application_type.application_type'
+            )
+            ->get();
 
-    // Group by application_type, then category, then product_name
-    $grouped = $subProducts->groupBy('application_type')->map(function($appGroup) {
-        return $appGroup->groupBy('category')->map(function($catGroup) {
-            return $catGroup->groupBy('product_name');
+        // Group by application_type, then category, then product_name
+        $grouped = $subProducts->groupBy('application_type')->map(function($appGroup) {
+            return $appGroup->groupBy('category')->map(function($catGroup) {
+                return $catGroup->groupBy('product_name');
+            });
         });
-    });
 
-    return view('backend.product.sub_products.index', ['groupedSubProducts' => $grouped]);
-}
-
-
-
+        return view('backend.product.sub_products.index', ['groupedSubProducts' => $grouped]);
+    }
 
     public function create(Request $request)
     {
@@ -169,12 +166,15 @@ class SubProductController extends Controller
         $applications = Applications::whereNull('deleted_by')->get();
         $banner_details = SubProduct::findOrFail($id);
 
-        // Get categories only for the selected application type
         $categories = Category::where('application_id', $banner_details->application_id)
                             ->whereNull('deleted_by')
                             ->get();
 
-        return view('backend.product.sub_products.edit', compact('banner_details','applications', 'categories'));
+        $product = Product::whereNull('deleted_by')->get(); 
+
+        // dd($categories);
+
+        return view('backend.product.sub_products.edit', compact('banner_details', 'applications', 'categories', 'product'));
     }
 
 

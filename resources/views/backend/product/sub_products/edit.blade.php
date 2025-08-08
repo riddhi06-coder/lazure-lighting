@@ -48,117 +48,118 @@
                             <div class="tab-content" id="wizard-tabContent">
                                 <div class="tab-pane fade show active" id="wizard-contact" role="tabpanel" aria-labelledby="wizard-contact-tab">
 
-                                   <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-sub-product.update', $banner_details->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
+                                    <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-sub-product.update', $banner_details->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
 
-    <!-- Banner Title -->
-    <div class="col-md-6">
-        <label class="form-label" for="banner_title">Banner Title </label>
-        <input class="form-control" id="banner_title" type="text" name="banner_title" placeholder="Enter Banner Title"
-            value="{{ old('banner_title', $banner_details->banner_title) }}">
-        <div class="invalid-feedback">Please enter a Banner Title.</div>
-    </div>
+                                        <!-- Banner Title -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="banner_title">Banner Title </label>
+                                            <input class="form-control" id="banner_title" type="text" name="banner_title" placeholder="Enter Banner Title"
+                                                value="{{ old('banner_title', $banner_details->banner_title) }}">
+                                            <div class="invalid-feedback">Please enter a Banner Title.</div>
+                                        </div>
 
-    <!-- Banner Image -->
-    <div class="col-md-6">
-        <label class="form-label" for="banner_image">Banner Image </label>
-        <input class="form-control" id="banner_image" type="file" name="banner_image" accept=".jpg, .jpeg, .png, .webp" onchange="previewBannerImage()">
-        <div class="invalid-feedback">Please upload a Banner Image.</div>
-        <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small><br>
-        <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
+                                        <!-- Banner Image -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="banner_image">Banner Image </label>
+                                            <input class="form-control" id="banner_image" type="file" name="banner_image" accept=".jpg, .jpeg, .png, .webp" onchange="previewBannerImage()">
+                                            <div class="invalid-feedback">Please upload a Banner Image.</div>
+                                            <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small><br>
+                                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
 
-        <!-- Show existing banner image preview if exists -->
-        @if($banner_details->banner_image)
-            <div style="margin-top: 10px;">
-                <img src="{{ asset($banner_details->banner_image) }}" alt="Banner Image" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; padding: 5px;">
-            </div>
-        @endif
+                                            <!-- Show existing banner image preview if exists -->
+                                            @if($banner_details->banner_image)
+                                                <div style="margin-top: 10px;">
+                                                    <img src="{{ asset($banner_details->banner_image) }}" alt="Banner Image" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; padding: 5px;">
+                                                </div>
+                                            @endif
 
-        <!-- Preview container for new image -->
-        <div id="bannerImagePreviewContainer" style="display: none; margin-top: 10px;">
-            <img id="banner_image_preview" src="" alt="Preview" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; padding: 5px;">
-        </div>
-    </div>
+                                            <!-- Preview container for new image -->
+                                            <div id="bannerImagePreviewContainer" style="display: none; margin-top: 10px;">
+                                                <img id="banner_image_preview" src="" alt="Preview" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; padding: 5px;">
+                                            </div>
+                                        </div>
 
-    <hr>
+                                        <hr>
 
-    <!-- Product -->
-    <div class="col-md-6">
-        <label class="form-label" for="product_id">Product <span class="txt-danger">*</span></label>
-        <select name="product_id" class="form-control" id="product_id" required>
-            <option value="">Select Product</option>
-            @foreach($product as $p)
-                <option value="{{ $p->id }}" {{ (old('product_id', $banner_details->product_id) == $p->id) ? 'selected' : '' }}>{{ $p->product }}</option>
-            @endforeach
-        </select>
-        <div class="invalid-feedback">Please select a Product.</div>
-    </div>
+                                        <!-- Product -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="product_id">Product <span class="txt-danger">*</span></label>
+                                            <select name="product_id" class="form-control" id="product_id" required>
+                                                <option value="">Select Product</option>
+                                                @foreach($product as $p)
+                                                    <option value="{{ $p->id }}" {{ (old('product_id', $banner_details->product_id) == $p->id) ? 'selected' : '' }}>{{ $p->product }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">Please select a Product.</div>
+                                        </div>
 
-    <!-- Application Type -->
-    <div class="col-md-6">
-        <label class="form-label" for="application_type">Application Type <span class="txt-danger">*</span></label>
-        <select class="form-control" id="application_type" disabled>
-            <option value="">-- Select Application Type --</option>
-            @foreach($applications as $application)
-                <option value="{{ $application->id }}" {{ (old('application_type', $banner_details->application_id) == $application->id) ? 'selected' : '' }}>
-                    {{ $application->application_type }}
-                </option>
-            @endforeach
-        </select>
-        <input type="hidden" name="application_type" id="application_type_hidden" value="{{ old('application_type', $banner_details->application_id) }}">
-        <div class="invalid-feedback">Please select an Application Type.</div>
-    </div>
+                                        <!-- Application Type -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="application_type">Application Type <span class="txt-danger">*</span></label>
+                                            <select class="form-control" id="application_type" disabled>
+                                                <option value="">-- Select Application Type --</option>
+                                                @foreach($applications as $application)
+                                                    <option value="{{ $application->id }}" {{ (old('application_type', $banner_details->application_id) == $application->id) ? 'selected' : '' }}>
+                                                        {{ $application->application_type }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" name="application_type" id="application_type_hidden" value="{{ old('application_type', $banner_details->application_id) }}">
 
-    <!-- Category -->
-    <div class="col-md-6">
-        <label class="form-label" for="parent_category">Category <span class="txt-danger">*</span></label>
-        <select class="form-control" id="parent_category" disabled>
-            <option value="">Select Category</option>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ (old('parent_category', $banner_details->category_id) == $category->id) ? 'selected' : '' }}>
-                    {{ $category->category_name }}
-                </option>
-            @endforeach
-        </select>
-        <input type="hidden" name="parent_category" id="parent_category_hidden" value="{{ old('parent_category', $banner_details->category_id) }}">
-        <div class="invalid-feedback">Please select a Category.</div>
-    </div>
+                                            <div class="invalid-feedback">Please select an Application Type.</div>
+                                        </div>
 
-    <!-- Sub Product -->
-    <div class="col-md-6">
-        <label class="form-label" for="sub_product">Sub Product <span class="txt-danger">*</span></label>
-        <input class="form-control" id="sub_product" type="text" name="sub_product" placeholder="Enter Sub Product" required value="{{ old('sub_product', $banner_details->sub_product) }}">
-        <div class="invalid-feedback">Please enter a Sub Product.</div>
-    </div>
+                                        <!-- Category -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="parent_category">Category <span class="txt-danger">*</span></label>
+                                            <select class="form-control" id="parent_category" disabled>
+                                                <option value="">Select Category</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}" {{ (old('parent_category', $banner_details->category_id) == $category->id) ? 'selected' : '' }}>
+                                                        {{ $category->category }}  <!-- Use 'category' instead of 'category_name' -->
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" name="parent_category" id="parent_category_hidden" value="{{ old('parent_category', $banner_details->category_id) }}">
+                                            <div class="invalid-feedback">Please select a Category.</div>
+                                        </div>
 
-    <!-- Thumbnail Image -->
-    <div class="col-md-6">
-        <label class="form-label" for="thumbnail_image">Thumbnail Image <span class="txt-danger">*</span></label>
-        <input class="form-control" id="thumbnail_image" type="file" name="thumbnail_image" accept=".jpg, .jpeg, .png, .webp" onchange="previewThumbnailImage()">
-        <div class="invalid-feedback">Please upload a Thumbnail Image.</div>
-        <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small><br>
-        <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
+                                        <!-- Sub Product -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="sub_product">Sub Product <span class="txt-danger">*</span></label>
+                                            <input class="form-control" id="sub_product" type="text" name="sub_product" placeholder="Enter Sub Product" required value="{{ old('sub_product', $banner_details->sub_product) }}">
+                                            <div class="invalid-feedback">Please enter a Sub Product.</div>
+                                        </div>
 
-        <!-- Show existing thumbnail image -->
-        @if($banner_details->thumbnail_image)
-            <div style="margin-top: 10px;">
-                <img src="{{ asset($banner_details->thumbnail_image) }}" alt="Thumbnail Image" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; padding: 5px;">
-            </div>
-        @endif
+                                        <!-- Thumbnail Image -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="thumbnail_image">Thumbnail Image <span class="txt-danger">*</span></label>
+                                            <input class="form-control" id="thumbnail_image" type="file" name="thumbnail_image" accept=".jpg, .jpeg, .png, .webp" onchange="previewThumbnailImage()">
+                                            <div class="invalid-feedback">Please upload a Thumbnail Image.</div>
+                                            <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small><br>
+                                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
 
-        <!-- Preview container for new image -->
-        <div id="thumbnailImagePreviewContainer" style="display: none; margin-top: 10px;">
-            <img id="thumbnail_image_preview" src="" alt="Preview" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; padding: 5px;">
-        </div>
-    </div>
+                                            <!-- Show existing thumbnail image -->
+                                            @if($banner_details->thumbnail_image)
+                                                <div style="margin-top: 10px;">
+                                                    <img src="{{ asset($banner_details->thumbnail_image) }}" alt="Thumbnail Image" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; padding: 5px;">
+                                                </div>
+                                            @endif
 
-    <!-- Form Actions -->
-    <div class="col-12 text-end mt-3">
-        <a href="{{ route('manage-sub-product.index') }}" class="btn btn-danger px-4">Cancel</a>
-        <button class="btn btn-primary" type="submit">Update</button>
-    </div>
-</form>
+                                            <!-- Preview container for new image -->
+                                            <div id="thumbnailImagePreviewContainer" style="display: none; margin-top: 10px;">
+                                                <img id="thumbnail_image_preview" src="" alt="Preview" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; padding: 5px;">
+                                            </div>
+                                        </div>
+
+                                        <!-- Form Actions -->
+                                        <div class="col-12 text-end mt-3">
+                                            <a href="{{ route('manage-sub-product.index') }}" class="btn btn-danger px-4">Cancel</a>
+                                            <button class="btn btn-primary" type="submit">Update</button>
+                                        </div>
+                                    </form>
 
 
 
