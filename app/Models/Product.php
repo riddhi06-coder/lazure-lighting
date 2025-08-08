@@ -28,6 +28,12 @@ class Product extends Model
         'deleted_by',
     ];
 
+    public function application()
+    {
+        return $this->belongsTo(Applications::class, 'application_id');
+    }
+
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

@@ -17,14 +17,14 @@
             <div class="page-title">
               <div class="row">
                 <div class="col-6">
-                  <h4>Add Product Details Form</h4>
+                  <h4>Add Sub Product Details Form</h4>
                 </div>
                 <div class="col-6">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                    <a href="{{ route('manage-product.index') }}">Home</a>
+                    <a href="{{ route('manage-sub-product.index') }}">Home</a>
                     </li>
-                    <li class="breadcrumb-item active">Add Product Details</li>
+                    <li class="breadcrumb-item active">Add Sub Product Details</li>
                 </ol>
 
                 </div>
@@ -37,7 +37,7 @@
                 <div class="col-md-12">
                     <div class="card">
                     <div class="card-header">
-                        <h4>Product Details Form</h4>
+                        <h4>Sub Product Details Form</h4>
                         <p class="f-m-light mt-1">Fill up your true details and submit the form.</p>
                     </div>
                     <div class="card-body">
@@ -48,7 +48,7 @@
                             <div class="tab-content" id="wizard-tabContent">
                                 <div class="tab-pane fade show active" id="wizard-contact" role="tabpanel" aria-labelledby="wizard-contact-tab">
 
-                                    <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-product.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-sub-product.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
 
                                         <!-- Banner Title-->
@@ -74,33 +74,51 @@
 
                                         <hr>
 
+                                       <!-- Product -->
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="product_id">Product <span class="txt-danger">*</span></label>
+                                            <select name="product_id" class="form-control" id="product_id">
+                                                <option value="">Select Product</option>
+                                                @foreach($product as $p)
+                                                    <option value="{{ $p->id }}">{{ $p->product }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">Please select a Product.</div>
+                                        </div>
+
+
                                         <!-- Application Type -->
                                         <div class="col-md-6">
                                             <label class="form-label" for="application_type">Application Type <span class="txt-danger">*</span></label>
-                                            <select class="form-control" id="application_type" name="application_type" required>
+                                            <select class="form-control" id="application_type" disabled>
                                                 <option value="">-- Select Application Type --</option>
                                                 @foreach($applications as $application)
-                                                    <option value="{{ $application->id }}">{{ $application->application_type }}</option>
+                                                    <option value="{{ $application->id }}" {{ old('application_type') == $application->id ? 'selected' : '' }}>
+                                                        {{ $application->application_type }}
+                                                    </option>
                                                 @endforeach
                                             </select>
+                                            <input type="hidden" name="application_type" id="application_type_hidden" value="{{ old('application_type') }}">
                                             <div class="invalid-feedback">Please select an Application Type.</div>
                                         </div>
 
                                         <!-- Category -->
                                         <div class="col-md-6">
                                             <label class="form-label" for="parent_category">Category <span class="txt-danger">*</span></label>
-                                            <select name="parent_category" class="form-control" id="parent_category">
+                                            <select class="form-control" id="parent_category" disabled>
                                                 <option value="">Select Category</option>
-                                                {{-- Filled by JS --}}
+                                                {{-- options filled by JS --}}
                                             </select>
+                                            <input type="hidden" name="parent_category" id="parent_category_hidden" value="{{ old('parent_category') }}">
                                             <div class="invalid-feedback">Please select a Category.</div>
                                         </div>
 
 
+
                                         <!-- Product -->
                                         <div class="col-md-6">
-                                            <label class="form-label" for="product">Product <span class="txt-danger">*</span></label>
-                                            <input class="form-control" id="product" type="text" name="product" placeholder="Enter Product" required>
+                                            <label class="form-label" for="sub_product">Sub Product <span class="txt-danger">*</span></label>
+                                            <input class="form-control" id="sub_product" type="text" name="sub_product" placeholder="Enter Sub Product" required>
                                             <div class="invalid-feedback">Please enter a Banner Heading.</div>
                                         </div>
 
@@ -122,7 +140,7 @@
 
                                         <!-- Form Actions -->
                                         <div class="col-12 text-end mt-3">
-                                            <a href="{{ route('manage-product.index') }}" class="btn btn-danger px-4">Cancel</a>
+                                            <a href="{{ route('manage-sub-product.index') }}" class="btn btn-danger px-4">Cancel</a>
                                             <button class="btn btn-primary" type="submit">Submit</button>
                                         </div>
                                     </form>
@@ -206,27 +224,56 @@
     }
 </script>
 
-<script>
-    $('#application_type').on('change', function () {
-        let appId = $(this).val();
 
-        if (appId) {
-            $.ajax({
-                url: '/get-categories/' + appId, 
-                type: 'GET',
-                success: function (data) {
-                    let options = '<option value="">Select Category</option>';
-                    $.each(data, function (key, category) {
-                        options += `<option value="${category.id}">${category.category}</option>`;
-                    });
-                    $('select[name="parent_category"]').html(options);
-                }
-            });
-        } else {
-            $('select[name="parent_category"]').html('<option value="">Select Category</option>');
-        }
+
+<script>
+   $(document).ready(function () {
+        $('#product_id').on('change', function () {
+            let productId = $(this).val();
+
+            if (productId) {
+                $.ajax({
+                    url: '/get-product-details/' + productId,
+                    type: 'GET',
+                    success: function (data) {
+                        if (data.application_id) {
+                            $('#application_type').val(data.application_id);
+                            $('#application_type_hidden').val(data.application_id);
+                        } else {
+                            $('#application_type').val('');
+                            $('#application_type_hidden').val('');
+                        }
+
+                        if (data.category_id) {
+                            $('#parent_category').html(`<option value="${data.category_id}">${data.category}</option>`);
+                            $('#parent_category_hidden').val(data.category_id);
+                        } else {
+                            $('#parent_category').html('<option value="">Select Category</option>');
+                            $('#parent_category_hidden').val('');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log("Error fetching product details:", xhr.responseText);
+                        // Reset selects and hidden inputs on error
+                        $('#application_type').val('');
+                        $('#application_type_hidden').val('');
+                        $('#parent_category').html('<option value="">Select Category</option>');
+                        $('#parent_category_hidden').val('');
+                    }
+                });
+            } else {
+                // Reset on no product selected
+                $('#application_type').val('');
+                $('#application_type_hidden').val('');
+                $('#parent_category').html('<option value="">Select Category</option>');
+                $('#parent_category_hidden').val('');
+            }
+        });
     });
+
 </script>
+
+
 
 
 </body>
