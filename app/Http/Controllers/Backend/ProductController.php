@@ -21,13 +21,20 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view('backend.product.products.index');
+        $products = Product::with(['category.application'])
+            ->whereNull('deleted_by')
+            ->orderBy('application_id') 
+            ->orderBy('category_id')
+            ->get()
+            ->groupBy(fn($product) => $product->category->application->application_type ?? 'No Application Type');
+
+        return view('backend.product.products.index', compact('products'));
     }
 
     public function create(Request $request)
     {
         $applications = Applications::whereNull('deleted_by')->get();
-        $categories = Category::whereNull('deleted_by')->get(); // Fetch existing categories
+        $categories = Category::whereNull('deleted_by')->get(); 
 
         return view('backend.product.products.create', compact('applications', 'categories'));
     }
@@ -39,6 +46,74 @@ class ProductController extends Controller
             ->get();
 
         return response()->json($categories);
+    }
+
+    public function store(Request $request)
+    {
+        $rules = [
+            'application_type' => 'required|exists:application_type,id',
+            'parent_category'  => 'required|exists:category,id',
+            'banner_title'     => 'nullable|string|max:255',
+            'banner_image'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'product'          => 'required|string|max:255',
+            'thumbnail_image'  => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ];
+
+        $messages = [
+            'application_type.required' => 'The Application Type is required.',
+            'application_type.exists'   => 'The selected Application Type is invalid.',
+
+            'parent_category.required'  => 'The Category field is required.',
+            'parent_category.exists'    => 'The selected Category is invalid.',
+
+            'banner_image.image'        => 'The uploaded banner must be an image.',
+            'banner_image.mimes'        => 'Allowed banner formats: jpg, jpeg, png, webp.',
+            'banner_image.max'          => 'The banner image must be less than 2MB.',
+
+            'thumbnail_image.required'  => 'The Thumbnail Image is required.',
+            'thumbnail_image.image'     => 'The uploaded thumbnail must be an image.',
+            'thumbnail_image.mimes'     => 'Allowed thumbnail formats: jpg, jpeg, png, webp.',
+            'thumbnail_image.max'       => 'The thumbnail image must be less than 2MB.',
+
+            'product.required'          => 'The Product name is required.',
+            'product.max'               => 'The Product name may not be greater than 255 characters.',
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+
+        // ✅ Handle banner image upload
+        if ($request->hasFile('banner_image')) {
+            $bannerImage = $request->file('banner_image');
+            $bannerImageName = time() . rand(10, 999) . '.' . $bannerImage->getClientOriginalExtension();
+            $bannerPath = 'uploads/products/';
+            $bannerImage->move(public_path($bannerPath), $bannerImageName);
+            $validatedData['banner_image'] = $bannerPath . $bannerImageName;
+        } else {
+            $validatedData['banner_image'] = null;
+        }
+
+        // ✅ Handle thumbnail image upload
+        $thumbnailImage = $request->file('thumbnail_image');
+        $thumbnailImageName = time() . rand(10, 999) . '.' . $thumbnailImage->getClientOriginalExtension();
+        $thumbnailPath = 'uploads/products/';
+        $thumbnailImage->move(public_path($thumbnailPath), $thumbnailImageName);
+        $validatedData['thumbnail_image'] = $thumbnailPath . $thumbnailImageName;
+
+        $slug = Str::slug($validatedData['product']);
+
+        Product::create([
+            'banner_title'     => $validatedData['banner_title'],
+            'banner_image'     => $validatedData['banner_image'],
+            'application_id'   => $validatedData['application_type'],
+            'category_id'      => $validatedData['parent_category'],
+            'product'          => $validatedData['product'],
+            'thumbnail_image'  => $validatedData['thumbnail_image'],
+            'slug'             => $slug,
+            'created_by'       => Auth::id(),
+            'created_at'       => Carbon::now(),
+        ]);
+
+        return redirect()->route('manage-product.index')->with('message', 'Product added successfully!');
     }
 
 }

@@ -48,7 +48,7 @@
                             <div class="tab-content" id="wizard-tabContent">
                                 <div class="tab-pane fade show active" id="wizard-contact" role="tabpanel" aria-labelledby="wizard-contact-tab">
 
-                                     <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-product.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-product.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
 
                                         <!-- Banner Title-->
@@ -97,10 +97,10 @@
                                         </div>
 
 
-                                        <!-- Application Type-->
+                                        <!-- Product -->
                                         <div class="col-md-6">
-                                            <label class="form-label" for="category">Category <span class="txt-danger">*</span></label>
-                                            <input class="form-control" id="category" type="text" name="category" placeholder="Enter Category" required>
+                                            <label class="form-label" for="product">Product <span class="txt-danger">*</span></label>
+                                            <input class="form-control" id="product" type="text" name="product" placeholder="Enter Product" required>
                                             <div class="invalid-feedback">Please enter a Banner Heading.</div>
                                         </div>
 
@@ -178,6 +178,32 @@
             }
         }
     }
+
+    function previewThumbnailImage() {
+        const file = document.getElementById('thumbnail_image').files[0];
+        const previewContainer = document.getElementById('thumbnailImagePreviewContainer');
+        const previewImage = document.getElementById('thumbnail_image_preview');
+
+        // Clear the previous preview
+        previewImage.src = '';
+        
+        if (file) {
+            const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+            if (validImageTypes.includes(file.type)) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.style.display = 'block';  // Show the preview section
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please upload a valid image file (jpg, jpeg, png, webp).');
+            }
+        }
+    }
 </script>
 
 <script>
@@ -186,7 +212,7 @@
 
         if (appId) {
             $.ajax({
-                url: '/get-categories/' + appId, // ✅ This must match your web.php route
+                url: '/get-categories/' + appId, 
                 type: 'GET',
                 success: function (data) {
                     let options = '<option value="">Select Category</option>';
@@ -200,7 +226,6 @@
             $('select[name="parent_category"]').html('<option value="">Select Category</option>');
         }
     });
-
 </script>
 
 
