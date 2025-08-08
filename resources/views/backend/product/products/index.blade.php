@@ -61,7 +61,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Category Name</th>
+                                    <!-- <th>Category Name</th> -->
                                     <th>Product Name</th>
                                     <th>Image</th>
                                     <th>Action</th>
@@ -90,12 +90,12 @@
                                         @foreach($categoryProducts as $key => $product)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $categoryName }}</td>
+                                                <!-- <td>{{ $categoryName }}</td> -->
                                                 <td>{{ $product->product }}</td>
                                                 <td>
                                                     @if($product->thumbnail_image)
                                                         <img src="{{ asset($product->thumbnail_image) }}" alt="{{ $product->product }}"
-                                                            style="width:60px; height:60px; object-fit:cover;">
+                                                            style="width:100px; height:100px; object-fit:cover;">
                                                     @else
                                                         No Image
                                                     @endif

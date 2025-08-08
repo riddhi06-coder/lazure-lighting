@@ -51,6 +51,11 @@
                     </div>
 
                     <div class="table-responsive custom-scrollbar">
+                        <div class="d-flex justify-content-end mb-2">
+                            <div style="width: 300px;">
+                                <input type="text" id="categorySearch" placeholder="Search Application Type or Category" class="form-control">
+                            </div>
+                        </div>
                        <table class="display" id="basic-1">
                             <thead>
                                 <tr>
@@ -92,6 +97,7 @@
 
 
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -104,6 +110,58 @@
     </div>
 
         @include('components.backend.main-js')
+
+
+ <script>
+    document.getElementById('categorySearch').addEventListener('input', function () {
+        const filter = this.value.trim().toLowerCase();
+        const table = document.getElementById('basic-1');
+        if (!table) return;
+
+        const rows = Array.from(table.tBodies[0].rows);
+        let i = 0;
+
+        while (i < rows.length) {
+            const row = rows[i];
+            const firstCell = row.cells[0];
+            const isAppTypeHeader = firstCell && firstCell.colSpan > 1 && row.textContent.toLowerCase().includes('application type');
+
+            if (isAppTypeHeader) {
+                const appTypeRow = row;
+                const appTypeText = appTypeRow.textContent.replace(/^application type:\s*/i, '').toLowerCase();
+                let appTypeHasMatch = false;
+
+                i++;
+
+                // Process category rows under this application type
+                while (i < rows.length && !(rows[i].cells[0] && rows[i].cells[0].colSpan > 1 && rows[i].textContent.toLowerCase().includes('application type'))) {
+                    const catRow = rows[i];
+                    const categoryText = (catRow.cells[1]?.textContent || '').toLowerCase();
+
+                    if (filter === '') {
+                        catRow.style.display = '';
+                        appTypeHasMatch = true;
+                    } else if (appTypeText.includes(filter)) {
+                        catRow.style.display = '';
+                        appTypeHasMatch = true;
+                    } else if (categoryText.includes(filter)) {
+                        catRow.style.display = '';
+                        appTypeHasMatch = true;
+                    } else {
+                        catRow.style.display = 'none';
+                    }
+
+                    i++;
+                }
+
+                // Show/hide the Application Type header
+                appTypeRow.style.display = appTypeHasMatch ? '' : 'none';
+            } else {
+                i++;
+            }
+        }
+    });
+</script>
 
 </body>
 
