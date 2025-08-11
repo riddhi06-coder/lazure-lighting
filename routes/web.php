@@ -19,6 +19,8 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SubProductController;
 use App\Http\Controllers\Backend\AppIntroController;
 use App\Http\Controllers\Backend\ProjectController;
+use App\Http\Controllers\Backend\BlogsController;
+
 
 use App\Http\Controllers\Frontend\HomeController;
 
@@ -79,6 +81,12 @@ Route::resource('manage-advertise', AdvertiseController::class);
 
 // ==== Manage Advertise
 Route::resource('manage-home-categories', HomeCategoriesController::class);
+
+
+
+// ==== Manage Blogs
+Route::resource('manage-blogs', BlogsController::class);
+
 
 // ==== Manage Contact Details
 Route::resource('manage-contact', ContactController::class);
