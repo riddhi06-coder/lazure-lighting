@@ -77,7 +77,7 @@
 
                                     @foreach($categories as $category => $products)
                                         <tr>
-                                            <td colspan="4" style="background:#f8f9fa; padding-left: 20px; font-weight: 600;">
+                                            <td colspan="4" style="background:#f8f9fa; font-weight: 600;">
                                                 Category: {{ $category }}
                                             </td>
                                         </tr>
@@ -116,8 +116,6 @@
                             </tbody>
                         </table>
 
-
-
                     </div>
 
                   </div>
@@ -136,115 +134,86 @@
 
 <!--- for searchfunctionality ---->
 
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchInput = document.getElementById('productSearch');
-        if (!searchInput) {
-            console.error('Input with id "productSearch" not found!');
-            return;
-        }
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('productSearch');
+    const table = document.getElementById('productTable');
 
-        searchInput.addEventListener('input', function () {
-            const filter = this.value.trim().toLowerCase();
-            const table = document.getElementById('productTable');
-            if (!table) return;
+    if (!searchInput || !table) return;
 
-            const rows = Array.from(table.tBodies[0].rows);
-            let i = 0;
+    searchInput.addEventListener('input', function () {
+        const filter = this.value.trim().toLowerCase();
+        const rows = Array.from(table.tBodies[0].rows);
 
-            while (i < rows.length) {
-                const row = rows[i];
-                const firstCell = row.cells[0];
+        // Reset visibility
+        rows.forEach(row => {
+            row.style.display = '';
+            row.dataset.hasMatch = 'false';
+        });
 
-                const isAppTypeHeader = firstCell && firstCell.colSpan == 4 && firstCell.textContent.toLowerCase().startsWith('application type:');
+        if (!filter) return; // nothing to filter
 
+        // Pass 1: find matches and mark hierarchy
+        rows.forEach((row, i) => {
+            const rowText = row.textContent.trim().toLowerCase();
+            const isAppType   = row.cells[0]?.colSpan == 4 && rowText.startsWith('application type:');
+            const isCategory  = row.cells[0]?.colSpan == 4 && rowText.startsWith('category:');
+            const isProduct   = row.cells[0]?.colSpan == 4 && rowText.startsWith('product:');
 
-                if (isAppTypeHeader) {
-                    const appTypeRow = row;
-                    const appTypeText = firstCell.textContent.replace(/^application type:\s*/i, '').toLowerCase();
-                    let appTypeHasMatch = false;
+            // Match only if filter is actually present
+            if (rowText.includes(filter)) {
+                row.dataset.hasMatch = 'true';
 
-                    i++;
+                // --- Mark all parents above ---
+                let j = i - 1;
+                while (j >= 0) {
+                    const parentText = rows[j].textContent.trim().toLowerCase();
+                    const parentIsAppType  = rows[j].cells[0]?.colSpan == 4 && parentText.startsWith('application type:');
+                    const parentIsCategory = rows[j].cells[0]?.colSpan == 4 && parentText.startsWith('category:');
+                    const parentIsProduct  = rows[j].cells[0]?.colSpan == 4 && parentText.startsWith('product:');
 
-                    while (i < rows.length && !(rows[i].cells[0] && rows[i].cells[0].colSpan > 1 && rows[i].cells[0].textContent.toLowerCase().startsWith('application type:'))) {
-                        const catRow = rows[i];
-                        const catCell = catRow.cells[0];
-                    const isCategoryRow = catCell && catCell.colSpan == 4 && catCell.textContent.toLowerCase().startsWith('category:');
-
-                        let categoryHasMatch = false;
-
-                        if (isCategoryRow) {
-                            const categoryText = catCell.textContent.replace(/^category:\s*/i, '').toLowerCase();
-
-                            i++;
-
-                            const subProductRows = [];
-                            while (i < rows.length
-                                && !(rows[i].cells[0] && rows[i].cells[0].colSpan > 1
-                                    && (rows[i].cells[0].textContent.toLowerCase().startsWith('category:')
-                                        || rows[i].cells[0].textContent.toLowerCase().startsWith('application type:')))
-                            ) {
-                                subProductRows.push(rows[i]);
-                                i++;
-                            }
-
-                            if (filter === '') {
-                                catRow.style.display = '';
-                                subProductRows.forEach(r => r.style.display = '');
-                                appTypeHasMatch = true;
-                                categoryHasMatch = true;
-
-                            } else if (appTypeText.includes(filter)) {
-                                catRow.style.display = '';
-                                subProductRows.forEach(r => r.style.display = '');
-                                appTypeHasMatch = true;
-                                categoryHasMatch = true;
-
-                            } else if (categoryText.includes(filter)) {
-                                catRow.style.display = '';
-                                subProductRows.forEach(r => r.style.display = '');
-                                categoryHasMatch = true;
-                                appTypeHasMatch = true;
-
-                            } else {
-                                let subProductMatch = false;
-                                subProductRows.forEach(r => {
-                                    let subProductName = '';
-                                    for(let c=0; c < r.cells.length; c++){
-                                        subProductName += r.cells[c].textContent.toLowerCase() + ' ';
-                                    }
-                                    subProductName = subProductName.trim();
-
-                                    if (subProductName.includes(filter)) {
-                                        r.style.display = '';
-                                        subProductMatch = true;
-                                    } else {
-                                        r.style.display = 'none';
-                                    }
-                                });
-
-                                if (subProductMatch) {
-                                    catRow.style.display = '';
-                                    categoryHasMatch = true;
-                                    appTypeHasMatch = true;
-                                } else {
-                                    catRow.style.display = 'none';
-                                }
-                            }
-                        } else {
-                            i++;
-                        }
+                    if (parentIsAppType || parentIsCategory || parentIsProduct) {
+                        rows[j].dataset.hasMatch = 'true';
+                        if (parentIsAppType) break; // stop at top level
                     }
+                    j--;
+                }
 
-                    appTypeRow.style.display = appTypeHasMatch ? '' : 'none';
+                // --- Mark children below if header matched ---
+                if (isAppType || isCategory || isProduct) {
+                    let k = i + 1;
+                    while (k < rows.length) {
+                        const childText = rows[k].textContent.trim().toLowerCase();
+                        const childIsAppType  = rows[k].cells[0]?.colSpan == 4 && childText.startsWith('application type:');
+                        const childIsCategory = rows[k].cells[0]?.colSpan == 4 && childText.startsWith('category:');
+                        const childIsProduct  = rows[k].cells[0]?.colSpan == 4 && childText.startsWith('product:');
 
-                } else {
-                    i++;
+                        if (isAppType && childIsAppType) break;
+                        if (isCategory && (childIsCategory || childIsAppType)) break;
+                        if (isProduct && (childIsProduct || childIsCategory || childIsAppType)) break;
+
+                        rows[k].dataset.hasMatch = 'true';
+                        k++;
+                    }
                 }
             }
         });
+
+        // Pass 2: hide everything not marked
+        rows.forEach(row => {
+            if (row.dataset.hasMatch !== 'true') {
+                row.style.display = 'none';
+            }
+        });
     });
+});
 </script>
+
+
+
+
+
 
 
 
