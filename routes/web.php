@@ -17,6 +17,8 @@ use App\Http\Controllers\Backend\ApplicationController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SubProductController;
+use App\Http\Controllers\Backend\AppIntroController;
+
 
 use App\Http\Controllers\Frontend\HomeController;
 
@@ -60,6 +62,8 @@ Route::get('/get-categories/{applicationId}', [ProductController::class, 'getCat
 Route::resource('manage-sub-product', SubProductController::class);
 Route::get('/get-product-details/{productId}', [SubProductController::class, 'getProductDetails']);
 
+// ==== Manage Home Application Intro
+Route::resource('manage-app-intro', AppIntroController::class);
 
 // ==== Manage Banner Details
 Route::resource('manage-banner', BannerController::class);

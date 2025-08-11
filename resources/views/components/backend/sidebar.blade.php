@@ -53,7 +53,7 @@
 
 
                 
-                <li class="sidebar-list {{ request()->routeIs('manage-banner.index', 'manage-featured-products.index', 'manage-advertise.index', 'manage-advertise.index') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-banner.index', 'manage-featured-products.index', 'manage-app-intro.index', 'manage-app-intro.index') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"> </i>
                   <a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon"> 
@@ -68,7 +68,7 @@
                     <li><a href="{{ route('manage-banner.index') }}" class="{{ request()->routeIs('manage-banner.index') ? 'active' : '' }}">Banner Details</a></li>
                     <li><a href="{{ route('manage-featured-products.index') }}" class="{{ request()->routeIs('manage-featured-products.index') ? 'active' : '' }}">Featured Products</a></li>
                     <li><a href="{{ route('manage-advertise.index') }}" class="{{ request()->routeIs('manage-advertise.index') ? 'active' : '' }}">Advertisement</a></li>
-                    <li><a href="{{ route('manage-advertise.index') }}" class="{{ request()->routeIs('manage-advertise.index') ? 'active' : '' }}">Category Details</a></li>
+                    <li><a href="{{ route('manage-app-intro.index') }}" class="{{ request()->routeIs('manage-app-intro.index') ? 'active' : '' }}">Application Intro</a></li>
                   </ul>
                 </li>
 
