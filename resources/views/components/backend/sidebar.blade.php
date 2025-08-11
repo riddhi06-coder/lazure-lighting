@@ -52,6 +52,23 @@
                 </li>
 
 
+                 <li class="sidebar-list {{ request()->routeIs('manage-project-category.index', 'manage-category.index', 'manage-product.index', 'manage-sub-product.index', 'product-sizes.index', 'product-prints.index', 'product-details.index') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"> </i>
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon"> 
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#product-detail') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#product-detail') }}"></use>
+                    </svg>
+                    <span>Projects</span>
+                  </a>
+                  <ul class="sidebar-submenu">
+                    <li><a href="{{ route('manage-project-category.index') }}" class="{{ request()->routeIs('manage-project-category.index') ? 'active' : '' }}">Project Category</a></li>
+                  </ul>
+                </li>
+
+
                 
                 <li class="sidebar-list {{ request()->routeIs('manage-banner.index', 'manage-featured-products.index', 'manage-app-intro.index', 'manage-app-intro.index') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"> </i>
