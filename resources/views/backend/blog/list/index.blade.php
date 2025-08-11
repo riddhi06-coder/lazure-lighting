@@ -59,6 +59,7 @@
                                     <th>Blog Title</th>
                                     <th>Blog Date</th>
                                     <th>Blog Image</th>
+                                    <th>Features</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -75,6 +76,18 @@
                                                 <span class="text-muted">No Image</span>
                                             @endif
                                         </td>
+
+                                        {{-- Status Toggle --}}
+                                        <td>
+                                            <div class="form-check form-switch">
+                                                <input 
+                                                    class="form-check-input status-toggle" 
+                                                    type="checkbox" 
+                                                    data-id="{{ $blog->id }}" 
+                                                    {{ $blog->status ? 'checked' : '' }}>
+                                            </div>
+                                        </td>
+                                        
                                         <td>
                                             <a href="{{ route('manage-blogs.edit', $blog->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                             <form action="{{ route('manage-blogs.destroy', $blog->id) }}" method="POST" style="display:inline-block;">
