@@ -24,4 +24,10 @@ class AppIntro extends Model
         'deleted_at',
         'deleted_by',
     ];
+
+    public function applicationType()
+    {
+        return $this->belongsTo(Applications::class, 'application_type_id', 'id');
+    }
+
 }

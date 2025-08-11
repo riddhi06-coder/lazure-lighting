@@ -16,13 +16,16 @@ use App\Models\Applications;
 use App\Models\AppIntro;
 
 
-
 class AppIntroController extends Controller
 {
 
     public function index()
     {
-        return view('backend.home.application.index');
+        $applications = AppIntro::whereNull('deleted_by')
+            ->with('applicationType:id,application_type') 
+            ->get();
+
+        return view('backend.home.application.index', compact('applications'));
     }
 
     public function create(Request $request)
@@ -86,8 +89,8 @@ class AppIntroController extends Controller
         if ($request->hasFile('banner_image')) {
             $bannerImage = $request->file('banner_image');
             $bannerImageName = time() . rand(10, 999) . '.' . $bannerImage->getClientOriginalExtension();
-            $bannerImage->move(public_path('uploads/home/banner'), $bannerImageName);
-            $bannerImagePath = 'uploads/home/banner' . $bannerImageName;
+            $bannerImage->move(public_path('uploads/home/banner/'), $bannerImageName);
+            $bannerImagePath = 'uploads/home/banner/' . $bannerImageName;
         }
 
         // ✅ Handle Multiple Icon Uploads (Custom Naming) & Build JSON
@@ -97,8 +100,8 @@ class AppIntroController extends Controller
             if (isset($request->print_icon[$index]) && $request->file('print_icon')[$index]) {
                 $iconFile = $request->file('print_icon')[$index];
                 $iconName = time() . rand(10, 999) . '.' . $iconFile->getClientOriginalExtension();
-                $iconFile->move(public_path('uploads/home/banner'), $iconName);
-                $iconPath = 'uploads/home/banner' . $iconName;
+                $iconFile->move(public_path('uploads/home/banner/'), $iconName);
+                $iconPath = 'uploads/home/banner/' . $iconName;
             }
 
             $applicationDetails[] = [
@@ -119,6 +122,104 @@ class AppIntroController extends Controller
         ]);
 
         return redirect()->route('manage-app-intro.index')->with('message', 'Application intro created successfully.');
+    }
+
+    public function edit($id)
+    {
+        $appIntro = AppIntro::findOrFail($id);
+        $applications = Applications::whereNull('deleted_by')->get();
+
+        return view('backend.home.application.edit', compact('appIntro', 'applications'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $appIntro = AppIntro::findOrFail($id);
+
+        // ✅ Validation Rules (ignore current ID for unique check)
+        $rules = [
+            'application_type'     => [
+                'required',
+                'exists:application_type,id',
+                Rule::unique('app_intro', 'application_type_id')->ignore($id)
+            ],
+            'banner_image'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'application_info'     => 'required|string',
+            
+            'print_title'          => 'required|array|min:1',
+            'print_title.*'        => 'required|string|max:255',
+
+            'print_icon'           => 'nullable|array|min:1',
+            'print_icon.*'         => 'nullable|mimes:jpg,jpeg,png,svg,webp|max:2048',
+
+            'print_description'    => 'nullable|array|min:1',
+            'print_description.*'  => 'nullable|string|max:500',
+        ];
+
+        $messages = [
+            'application_type.unique' => 'This application type is already added.',
+            'banner_image.mimes'      => 'Banner must be jpg, jpeg, png, or webp format.',
+            'print_icon.*.mimes'      => 'Icons must be in jpg, jpeg, png, svg or webp format.',
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+
+        // ✅ Handle Banner Image
+        $bannerImagePath = $appIntro->banner_image;
+        if ($request->hasFile('banner_image')) {
+            $bannerImage = $request->file('banner_image');
+            $bannerImageName = time() . rand(10, 999) . '.' . $bannerImage->getClientOriginalExtension();
+            $bannerImage->move(public_path('uploads/home/banner/'), $bannerImageName);
+            $bannerImagePath = 'uploads/home/banner/' . $bannerImageName;
+        }
+
+        // ✅ Decode old application details to keep existing icons if not replaced
+        $oldDetails = json_decode($appIntro->application_details, true) ?? [];
+
+        $applicationDetails = [];
+        foreach ($request->print_title as $index => $title) {
+            $iconPath = $oldDetails[$index]['icon'] ?? null;
+
+            if (isset($request->print_icon[$index]) && $request->file('print_icon')[$index]) {
+                $iconFile = $request->file('print_icon')[$index];
+                $iconName = time() . rand(10, 999) . '.' . $iconFile->getClientOriginalExtension();
+                $iconFile->move(public_path('uploads/home/banner/'), $iconName);
+                $iconPath = 'uploads/home/banner/' . $iconName;
+            }
+
+            $applicationDetails[] = [
+                'title'       => $title,
+                'icon'        => $iconPath,
+                'description' => $request->print_description[$index] ?? null,
+            ];
+        }
+
+        // ✅ Update database
+        $appIntro->update([
+            'application_type_id' => $request->application_type,
+            'banner_image'        => $bannerImagePath,
+            'application_info'    => $request->application_info,
+            'application_details' => json_encode($applicationDetails),
+            'modified_by'         => Auth::id(),
+            'modified_at'         => Carbon::now(),
+        ]);
+
+        return redirect()->route('manage-app-intro.index')
+                        ->with('message', 'Application intro updated successfully.');
+    }
+
+    public function destroy(string $id)
+    {
+        $data['deleted_by'] =  Auth::user()->id;
+        $data['deleted_at'] =  Carbon::now();
+        try {
+            $industries = AppIntro::findOrFail($id);
+            $industries->update($data);
+
+            return redirect()->route('manage-app-intro.index')->with('message', 'Details deleted successfully!');
+        } catch (Exception $ex) {
+            return redirect()->back()->with('error', 'Something Went Wrong - ' . $ex->getMessage());
+        }
     }
 
 }

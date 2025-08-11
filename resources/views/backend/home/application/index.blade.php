@@ -56,14 +56,41 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
-                                    <th>Video</th>
+                                    <th>Application Name</th>
+                                    <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                @foreach ($applications as $index => $app)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                            <td>{{ $app->applicationType->application_type ?? 'N/A' }}</td>
+                                        <td>
+                                            @if($app->banner_image)
+                                                <img src="{{ asset($app->banner_image) }}"
+                                                    alt="{{ $app->applicationType->application_type ?? '' }}"
+                                                    width="200"
+                                                    height="100"
+                                                    style="object-fit: cover;">
+                                            @else
+                                                <span class="text-muted">No Image</span>
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('manage-app-intro.edit', $app->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                            <form action="{{ route('manage-app-intro.destroy', $app->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
+
+
                         </table>
 
                     </div>
