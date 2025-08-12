@@ -24,7 +24,7 @@
           <div class="row v-center">
             <div class="header-item item-left">
               <div class="logo">
-                <a href="#"><img src="{{ asset('frontend/assets/images/home/logo.png') }}"></a>
+                <a href="{{ route('frontend.index') }}"><img src="{{ asset('frontend/assets/images/home/logo.png') }}"></a>
               </div>
             </div>
             <!-- menu start here -->
@@ -43,7 +43,7 @@
 
 
                   <li class="menu-item-has-children">
-                    <a href="#">Products <i class="fa fa-angle-down"></i></a>
+                    <a href="{{ route('products.index') }}">Products <i class="fa fa-angle-down"></i></a>
                     <div class="sub-menu single-column-menu two-column-menu">
                       <div class="row">
                         <div class="col-md-12">

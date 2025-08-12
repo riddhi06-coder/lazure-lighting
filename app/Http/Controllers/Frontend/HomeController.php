@@ -15,6 +15,7 @@ use App\Models\Advertise;
 use App\Models\AppIntro;
 use App\Models\ProjectCategory;
 use App\Models\Blog;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -41,6 +42,14 @@ class HomeController extends Controller
 
         return view('frontend.index', compact('banners','featuredProducts','advertisement','appIntros','firstSection', 'secondSection','projectCategories','blogs'));
     }
+
+    public function product_list()
+    {
+        $products = Product::wherenull('deleted_by')->get();
+        $banner = Product::first();
+        return view('frontend.products_list', compact('products','banner'));
+    }
+
 
 
 }

@@ -3209,9 +3209,9 @@ footer .container-fluid {
      position:relative;
     
 }
-.breadcrumb-bg-img{
+/* .breadcrumb-bg-img{
     background-image: url("../images/beadcrumb/2.webp") !important;
-}
+} */
 
 .breadcrumb{
     position: relative;
