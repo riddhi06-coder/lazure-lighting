@@ -42,4 +42,5 @@ class HomeController extends Controller
         return view('frontend.index', compact('banners','featuredProducts','advertisement','appIntros','firstSection', 'secondSection','projectCategories','blogs'));
     }
 
+
 }

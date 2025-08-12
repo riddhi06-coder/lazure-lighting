@@ -1,3 +1,23 @@
+@php
+    $applicationTypes = \DB::table('application_type as at')
+        ->join('category as c', 'at.id', '=', 'c.application_id')
+        ->select('at.id', 'at.application_type', 'c.category')
+        ->orderBy('at.id')
+        ->wherenull('c.deleted_by')
+        ->get()
+        ->groupBy('id') // group by application type id
+        ->take(2); // first 2 application types
+
+
+
+      // Fetch all project names
+      $projects = \DB::table('project_category')
+        ->select('category_name') // change column name if needed
+        ->orderBy('category_name', 'asc')
+        ->get();
+
+@endphp
+ 
  <header>
       <section class="main_menu">
         <div class="container">
@@ -16,51 +36,51 @@
                   <div class="current-menu-title"></div>
                   <div class="mobile-menu-close">×</div>
                 </div>
+
+
                 <ul class="menu-main">
                   <li><a href="index.html">Home</a></li>
+
+
                   <li class="menu-item-has-children">
                     <a href="#">Products <i class="fa fa-angle-down"></i></a>
                     <div class="sub-menu single-column-menu two-column-menu">
                       <div class="row">
                         <div class="col-md-12">
+
                           <div class="row">
-                            <div class="col-md-6 col-sm-12 list-item border-right-one">
-                              <h3>Interior Spaces</h3>
-                              <ul>
-                                <li><a href="#">Downlight</a></li>
-                                <li><a href="#">Integrated systems</a></li>
-                                <li><a href="#">Linears</a></li>
-                                <li><a href="#">Suspensions and Creations</a></li>
-                                <li><a href="#">Track Mounted</a></li>
-                              </ul>
-                            </div>
-                            <div class="col-md-6 col-sm-12 list-item border-right-one">
-                              <h3>Exterior Spaces</h3>
-                              <ul>
-                                <li><a href="#">Burials and Underwater</a></li>
-                                <li><a href="#">Linear Grazers</a></li>
-                                <li><a href="#">Pole and Bollards</a></li>
-                                <li><a href="#">Projectors</a></li>
-                                <li><a href="#">Wall Lights</a></li>
-                              </ul>
-                            </div>
+                              @foreach($applicationTypes as $appId => $categories)
+                                  <div class="col-md-6 col-sm-12 list-item border-right-one">
+                                      <h3>{{ $categories->first()->application_type }}</h3>
+                                      <ul>
+                                          @foreach($categories as $cat)
+                                              <li><a href="#">{{ $cat->category }}</a></li>
+                                          @endforeach
+                                      </ul>
+                                  </div>
+                              @endforeach
                           </div>
+
                         </div>
                       </div>
                     </div>
                   </li>
+
+
                   <li class="menu-item-has-children">
                     <a href="#">Projects <i class="fa fa-angle-down"></i></a>
                     <div class="sub-menu single-column-menu">
-                      <ul>
-                        <li><a href="#">Commercial</a></li>
-                        <li><a href="#">Hospitality</a></li>
-                        <li><a href="#">Residential</a></li>
-                        <li><a href="#">Retail</a></li>
-                      </ul>
+                        <ul>
+                            @foreach($projects as $project)
+                                <li><a href="#">{{ $project->category_name }}</a></li>
+                            @endforeach
+                        </ul>
                     </div>
-                  </li>
+                </li>
+
+
                   <li><a href="#">Built-to-suit</a></li>
+
                   <li class="menu-item-has-children">
                     <a href="#">About Us <i class="fa fa-angle-down"></i></a>
                     <div class="sub-menu single-column-menu">
@@ -71,6 +91,7 @@
                       </ul>
                     </div>
                   </li>
+                  
                 </ul>
               </nav>
             </div><!-- menu end here -->
