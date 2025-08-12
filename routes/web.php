@@ -86,6 +86,8 @@ Route::resource('manage-home-categories', HomeCategoriesController::class);
 
 // ==== Manage Blogs
 Route::resource('manage-blogs', BlogsController::class);
+Route::post('/manage-blogs/status/{id}', [BlogsController::class, 'updateStatus'])->name('manage-blogs.status');
+
 
 
 // ==== Manage Contact Details

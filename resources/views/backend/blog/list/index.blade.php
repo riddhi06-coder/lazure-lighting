@@ -3,6 +3,8 @@
     
 <head>
     @include('components.backend.head')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 	   
 		@include('components.backend.header')
@@ -59,7 +61,7 @@
                                     <th>Blog Title</th>
                                     <th>Blog Date</th>
                                     <th>Blog Image</th>
-                                    <th>Features</th>
+                                    <th>Featured Blog</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -77,17 +79,17 @@
                                             @endif
                                         </td>
 
-                                        {{-- Status Toggle --}}
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input 
+                                                    style="margin-left: 4px !important;"
                                                     class="form-check-input status-toggle" 
                                                     type="checkbox" 
                                                     data-id="{{ $blog->id }}" 
                                                     {{ $blog->status ? 'checked' : '' }}>
                                             </div>
                                         </td>
-                                        
+
                                         <td>
                                             <a href="{{ route('manage-blogs.edit', $blog->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                             <form action="{{ route('manage-blogs.destroy', $blog->id) }}" method="POST" style="display:inline-block;">
@@ -115,6 +117,39 @@
     </div>
 
         @include('components.backend.main-js')
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".status-toggle").forEach(toggle => {
+                    toggle.addEventListener("change", function () {
+                        let blogId = this.dataset.id;
+                        let status = this.checked ? 1 : 0;
+
+                        fetch(`/manage-blogs/status/${blogId}`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                            },
+                            body: JSON.stringify({ status: status })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                alert("Something went wrong!");
+                                this.checked = !this.checked; // revert toggle if failed
+                            }
+                        })
+                        .catch(() => {
+                            alert("Error connecting to server.");
+                            this.checked = !this.checked;
+                        });
+                    });
+                });
+            });
+        </script>
+
 
 </body>
 
