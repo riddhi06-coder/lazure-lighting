@@ -1,7 +1,7 @@
 @php
     $applicationTypes = \DB::table('application_type as at')
         ->join('category as c', 'at.id', '=', 'c.application_id')
-        ->select('at.id', 'at.application_type', 'c.category','c.slug')
+        ->select('at.id', 'at.application_type', 'at.slug as application_slug', 'c.category','c.slug')
         ->orderBy('at.id')
         ->wherenull('c.deleted_by')
         ->get()
@@ -52,7 +52,12 @@
                           <div class="row">
                               @foreach($applicationTypes as $appId => $categories)
                                   <div class="col-md-6 col-sm-12 list-item border-right-one">
-                                      <h3>{{ $categories->first()->application_type }}</h3>
+                                      <h3>
+                                        <a href="{{ route('applications.list', ['application_type' => $categories->first()->application_slug]) }}">
+                                            {{ $categories->first()->application_type }}
+                                        </a>
+                                      </h3>
+
                                       <ul>
                                           @foreach($categories as $cat)
                                               <li><a href="{{ route('category.show', ['slug' => $cat->slug]) }}">{{ $cat->category }}</a></li>
@@ -69,15 +74,15 @@
 
 
                   <li class="menu-item-has-children">
-                    <a href="#">Projects <i class="fa fa-angle-down"></i></a>
-                    <div class="sub-menu single-column-menu">
-                        <ul>
-                            @foreach($projects as $project)
-                                <li><a href="#">{{ $project->category_name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </li>
+                      <a href="#">Projects <i class="fa fa-angle-down"></i></a>
+                      <div class="sub-menu single-column-menu">
+                          <ul>
+                              @foreach($projects as $project)
+                                  <li><a href="#">{{ $project->category_name }}</a></li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  </li>
 
 
                   <li><a href="#">Built-to-suit</a></li>

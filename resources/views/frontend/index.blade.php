@@ -134,7 +134,7 @@
                                             <img src="{{ asset($intro->banner_image) }}" class="img-responsive solution-img-img" alt="">
                                             <div class="bottom-fade"></div>
                                             <div class="icon">
-                                                <a href="#" class="vid arrow">
+                                                <a href="{{ route('applications.list', ['application_type' => $intro->applicationType->slug]) }}" class="vid arrow">
                                                     <img src="{{ asset('frontend/assets/images/icons/right-arrow-white.svg') }}">
                                                 </a>
                                             </div>
@@ -151,7 +151,7 @@
                                             <img src="{{ asset($intro->banner_image) }}" class="img-responsive solution-img-img" alt="">
                                             <div class="bottom-fade"></div>
                                             <div class="icon">
-                                                <a href="#" class="vid arrow">
+                                                <a href="{{ route('applications.list', ['application_type' => $intro->applicationType->slug]) }}" class="vid arrow">
                                                     <img src="{{ asset('frontend/assets/images/icons/right-arrow-white.svg') }}">
                                                 </a>
                                             </div>

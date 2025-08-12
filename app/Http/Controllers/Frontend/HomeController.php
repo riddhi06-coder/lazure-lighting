@@ -49,9 +49,17 @@ class HomeController extends Controller
 
     public function product_list()
     {
-        $products = Product::wherenull('deleted_by')->get();
+        $products = DB::table('products as p')
+            ->join('category as c', 'p.category_id', '=', 'c.id')
+            ->join('application_type as a', 'c.application_id', '=', 'a.id')
+            ->whereNull('p.deleted_by')
+            ->select('p.*', 'a.application_type', 'a.slug as application_slug')  
+            ->get()
+            ->groupBy('application_type'); 
+
         $banner = Product::first();
-        return view('frontend.products_list', compact('products','banner'));
+
+        return view('frontend.products_list', compact('products', 'banner'));
     }
 
     public function application_list($application_type)
@@ -71,7 +79,6 @@ class HomeController extends Controller
 
     public function category_list($slug)
     {
-        // Join category with application_type table to get category and application details in one query
         $category = DB::table('category as c')
             ->join('application_type as a', 'c.application_id', '=', 'a.id')
             ->select('c.*', 'a.application_type')
@@ -93,6 +100,24 @@ class HomeController extends Controller
         return view('frontend.category_listing', compact('category', 'products', 'banner'));
     }
 
+
+
+    public function subProductDetail($application_slug, $product_slug)
+    {
+        // Find application by slug
+        $application = ApplicationType::where('slug', $application_slug)->firstOrFail();
+
+        // Find product by slug and ensure it belongs to that application via category
+        $product = Product::where('slug', $product_slug)
+                    ->whereHas('category', function($query) use ($application) {
+                        $query->where('application_id', $application->id);
+                    })
+                    ->firstOrFail();
+
+        // You can fetch subproducts or other data here if needed
+
+        return view('frontend.subproduct_detail', compact('application', 'product'));
+    }
 
 
 
