@@ -111,15 +111,22 @@
                                             <div class="desc">
                                                 <p>{!! $intro->application_info !!}</p>
                                             </div>
-                                            <a class="default-btn black-btn">Explore Now</a>
+                                            <a href="{{ route('applications.list', ['application_type' => $intro->applicationType->slug]) }}" class="default-btn black-btn">Explore Now</a>
+
                                             <div class="solution-listing" data-aos="fade-up" data-aos-duration="1500">
                                                 @foreach($intro->details as $detail)
+                                                    @php
+                                                        $slug = \Illuminate\Support\Str::slug($detail['title']);
+                                                    @endphp
                                                     <div class="single-solution-item hvr-icon-pop">
                                                         <img src="{{ asset($detail['icon']) }}" class="img-responsive hvr-icon" alt="">
-                                                        <a href="#"><h6>{{ $detail['title'] }}</h6></a>
+                                                        <a href="{{ route('applications.list', ['application_type' => $slug]) }}">
+                                                            <h6>{{ $detail['title'] }}</h6>
+                                                        </a>
                                                     </div>
                                                 @endforeach
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -161,15 +168,21 @@
                                             <div class="desc">
                                                 <p>{!! $intro->application_info !!}</p>
                                             </div>
-                                            <a class="default-btn black-btn">Explore Now</a>
+                                           <a href="{{ route('applications.list', ['application_type' => $intro->applicationType->slug]) }}" class="default-btn black-btn">Explore Now</a>
                                             <div class="solution-listing" data-aos="fade-up" data-aos-duration="1500">
                                                 @foreach($intro->details as $detail)
+                                                    @php
+                                                        $slug = \Illuminate\Support\Str::slug($detail['title']);
+                                                    @endphp
                                                     <div class="single-solution-item hvr-icon-pop">
                                                         <img src="{{ asset($detail['icon']) }}" class="img-responsive hvr-icon" alt="">
-                                                        <a href="#"><h6>{{ $detail['title'] }}</h6></a>
+                                                        <a href="{{ route('applications.list', ['application_type' => $slug]) }}">
+                                                            <h6>{{ $detail['title'] }}</h6>
+                                                        </a>
                                                     </div>
                                                 @endforeach
                                             </div>
+
                                         </div>
                                     </div>
                                 @endif

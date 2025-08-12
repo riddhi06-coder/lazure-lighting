@@ -39,7 +39,7 @@
 
 
                 <ul class="menu-main">
-                  <li><a href="index.html">Home</a></li>
+                  <li><a href="{{ route('frontend.index') }}">Home</a></li>
 
 
                   <li class="menu-item-has-children">

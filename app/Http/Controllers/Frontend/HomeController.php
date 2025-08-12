@@ -16,6 +16,8 @@ use App\Models\AppIntro;
 use App\Models\ProjectCategory;
 use App\Models\Blog;
 use App\Models\Product;
+use App\Models\Applications;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -31,6 +33,7 @@ class HomeController extends Controller
 
 
         $appIntros = AppIntro::with('applicationType')->get();
+        // dd($appIntros);
         foreach ($appIntros as $intro) {
             $intro->details = json_decode($intro->application_details, true);
             
@@ -49,6 +52,22 @@ class HomeController extends Controller
         $banner = Product::first();
         return view('frontend.products_list', compact('products','banner'));
     }
+
+    public function application_list($application_type)
+    {
+        $application = Applications::where('slug', $application_type)->firstOrFail();
+        $categories = DB::table('category')
+            ->join('application_type', 'category.application_id', '=', 'application_type.id')
+            ->where('application_type.slug', $application_type)
+            ->wherenull('category.deleted_by')
+            ->select('category.*')
+            ->get();
+    
+        $banner = Category::first();
+
+        return view('frontend.application_list', compact('application', 'categories','banner'));
+    }
+
 
 
 

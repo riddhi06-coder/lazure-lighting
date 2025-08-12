@@ -96,6 +96,8 @@ Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHist
     // ==== Home
     Route::get('/', [HomeController::class, 'home'])->name('frontend.index');
     Route::get('/products', [HomeController::class, 'product_list'])->name('products.index');
+    Route::get('/applications/{application_type}', [HomeController::class, 'application_list'])->name('applications.list');
+
 
 
 
