@@ -1,7 +1,7 @@
 @php
     $applicationTypes = \DB::table('application_type as at')
         ->join('category as c', 'at.id', '=', 'c.application_id')
-        ->select('at.id', 'at.application_type', 'c.category')
+        ->select('at.id', 'at.application_type', 'c.category','c.slug')
         ->orderBy('at.id')
         ->wherenull('c.deleted_by')
         ->get()
@@ -14,6 +14,7 @@
       $projects = \DB::table('project_category')
         ->select('category_name') // change column name if needed
         ->orderBy('category_name', 'asc')
+        ->wherenull('project_category.deleted_by')
         ->get();
 
 @endphp
@@ -54,7 +55,7 @@
                                       <h3>{{ $categories->first()->application_type }}</h3>
                                       <ul>
                                           @foreach($categories as $cat)
-                                              <li><a href="#">{{ $cat->category }}</a></li>
+                                              <li><a href="{{ route('category.show', ['slug' => $cat->slug]) }}">{{ $cat->category }}</a></li>
                                           @endforeach
                                       </ul>
                                   </div>

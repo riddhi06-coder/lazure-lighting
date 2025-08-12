@@ -18,6 +18,7 @@ use App\Models\Blog;
 use App\Models\Product;
 use App\Models\Applications;
 use App\Models\Category;
+use App\Models\SubProduct;
 
 class HomeController extends Controller
 {
@@ -67,6 +68,32 @@ class HomeController extends Controller
 
         return view('frontend.application_list', compact('application', 'categories','banner'));
     }
+
+    public function category_list($slug)
+    {
+        // Join category with application_type table to get category and application details in one query
+        $category = DB::table('category as c')
+            ->join('application_type as a', 'c.application_id', '=', 'a.id')
+            ->select('c.*', 'a.application_type')
+            ->where('c.slug', $slug)
+            ->whereNull('c.deleted_by')
+            ->first();
+
+        if (!$category) {
+            abort(404);
+        }
+
+        $banner = SubProduct::first();
+
+        $products = DB::table('products')
+            ->where('category_id', $category->id)
+            ->whereNull('deleted_by')
+            ->get();
+
+        return view('frontend.category_listing', compact('category', 'products', 'banner'));
+    }
+
+
 
 
 

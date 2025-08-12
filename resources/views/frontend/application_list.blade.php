@@ -36,12 +36,12 @@
                             <img src="{{ asset($category->thumbnail_image) }}" class="img-product-img" alt="{{ $category->category }}">
                             <div class="bottom-fade"></div>
                             <div class="icon"> 
-                                <a href="#" class="arrow">
-                                    <img src="{{ asset('images/icons/right-arrow-white.svg') }}">
+                                <a href="{{ route('category.show', $category->slug) }}" class="arrow">
+                                    <img src="{{ asset('frontend/assets/images/icons/right-arrow-white.svg') }}">
                                 </a> 
                             </div>
                             <div class="title">
-                                <a href="#">
+                                <a href="{{ route('category.show', $category->slug) }}">
                                     <h4>{{ $category->category }}</h4>
                                 </a>
                             </div>
