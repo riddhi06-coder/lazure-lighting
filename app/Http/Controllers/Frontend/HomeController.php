@@ -9,4 +9,15 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\About;
 
+
+class HomeController extends Controller
+{
+
+    // === Home
+    public function home(Request $request)
+    {
+        return view('frontend.index');
+    }
+}
