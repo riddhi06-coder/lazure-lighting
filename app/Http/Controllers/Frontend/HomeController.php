@@ -81,10 +81,11 @@ class HomeController extends Controller
     {
         $category = DB::table('category as c')
             ->join('application_type as a', 'c.application_id', '=', 'a.id')
-            ->select('c.*', 'a.application_type')
+            ->select('c.*', 'a.application_type',)
             ->where('c.slug', $slug)
             ->whereNull('c.deleted_by')
             ->first();
+        // dd($category);
 
         if (!$category) {
             abort(404);
@@ -92,32 +93,41 @@ class HomeController extends Controller
 
         $banner = SubProduct::first();
 
-        $products = DB::table('products')
-            ->where('category_id', $category->id)
-            ->whereNull('deleted_by')
+        $products = DB::table('products as p')
+            ->join('category as c', 'p.category_id', '=', 'c.id')
+            ->join('application_type as a', 'c.application_id', '=', 'a.id')
+            ->select('p.*', 'a.slug as application_slug')
+            ->where('p.category_id', $category->id)
+            ->whereNull('p.deleted_by')
             ->get();
 
         return view('frontend.category_listing', compact('category', 'products', 'banner'));
     }
 
-
-
+   
     public function subProductDetail($application_slug, $product_slug)
     {
-        // Find application by slug
-        $application = ApplicationType::where('slug', $application_slug)->firstOrFail();
+        $banner = SubProduct::first();
 
-        // Find product by slug and ensure it belongs to that application via category
+        $application = Applications::where('slug', $application_slug)->firstOrFail();
+
         $product = Product::where('slug', $product_slug)
                     ->whereHas('category', function($query) use ($application) {
                         $query->where('application_id', $application->id);
                     })
                     ->firstOrFail();
+        // dd($product);
 
-        // You can fetch subproducts or other data here if needed
+        $subproducts = SubProduct::where('application_id', $application->id)
+                        ->where('product_id', $product->id)
+                        ->whereNull('deleted_by')
+                        ->get();
 
-        return view('frontend.subproduct_detail', compact('application', 'product'));
+        // dd($subproducts);
+
+        return view('frontend.subproduct_list', compact('application', 'product', 'subproducts', 'banner'));
     }
+
 
 
 

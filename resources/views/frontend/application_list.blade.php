@@ -9,7 +9,6 @@
     @include('components.frontend.header')
 
 
-
     <section class="breadcrumb-interior-spaces" style="background-image: url('{{ asset($banner->banner_image) }}'); 
             background-size: cover; 
             background-position: center; 

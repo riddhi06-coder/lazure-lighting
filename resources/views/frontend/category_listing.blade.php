@@ -35,12 +35,12 @@
                     <img src="{{ asset($product->thumbnail_image) }}" class="img-product-img" alt="{{ $product->product }}">
                     <div class="bottom-fade"></div>
                     <div class="icon">
-                    <a href="#" class="arrow">
+                    <a href="{{ route('subproduct.detail', [$product->application_slug, $product->slug]) }}" class="arrow">
                         <img src="{{ asset('frontend/assets/images/icons/right-arrow-white.svg') }}">
                     </a>
                     </div>
                     <div class="title">
-                    <a href="#">
+                    <a href="{{ route('subproduct.detail', [$product->application_slug, $product->slug]) }}">
                         <h4>{{ $product->product }}</h4>
                     </a>
                     </div>
