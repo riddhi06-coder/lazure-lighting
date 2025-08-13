@@ -58,7 +58,7 @@ class SubProductController extends Controller
     {
         $product = Product::where('id', $productId)
             ->whereNull('deleted_by')
-            ->with(['application', 'category']) // Assuming you have relationships defined
+            ->with(['application', 'category']) 
             ->first();
 
         if ($product) {
