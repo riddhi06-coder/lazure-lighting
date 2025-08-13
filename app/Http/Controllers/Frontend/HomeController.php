@@ -47,6 +47,7 @@ class HomeController extends Controller
         return view('frontend.index', compact('banners','featuredProducts','advertisement','appIntros','firstSection', 'secondSection','projectCategories','blogs'));
     }
 
+    // === Product List
     public function product_list()
     {
         $products = DB::table('products as p')
@@ -62,6 +63,7 @@ class HomeController extends Controller
         return view('frontend.products_list', compact('products', 'banner'));
     }
 
+    // === Application List
     public function application_list($application_type)
     {
         $application = Applications::where('slug', $application_type)->firstOrFail();
@@ -77,6 +79,7 @@ class HomeController extends Controller
         return view('frontend.application_list', compact('application', 'categories','banner'));
     }
 
+    // === Category List
     public function category_list($slug)
     {
         $category = DB::table('category as c')
@@ -104,6 +107,7 @@ class HomeController extends Controller
         return view('frontend.category_listing', compact('category', 'products', 'banner'));
     }
 
+    // === Sub Product List
     public function subProductDetail($application_slug, $product_slug)
     {
         $banner = SubProduct::first();
