@@ -104,7 +104,6 @@ class HomeController extends Controller
         return view('frontend.category_listing', compact('category', 'products', 'banner'));
     }
 
-   
     public function subProductDetail($application_slug, $product_slug)
     {
         $banner = SubProduct::first();
