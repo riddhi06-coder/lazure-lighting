@@ -1,0 +1,10 @@
+*.zip
+*.rar
+*.tar
+*.gz
+storage/logs/*
+storage/logs/*.log
+node_modules/
+vendor/
+backup_05_12_2025/
+public/

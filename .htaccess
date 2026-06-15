@@ -1,0 +1,356 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Disable MultiViews
+Options -MultiViews
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+
+Redirect 301 /exterior-spaces/hypogean-fix-micro https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-fix-micro
+Redirect 301 /exterior-spaces/hypogean-fix-mini https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-fix-mini
+Redirect 301 /exterior-spaces/hypogean-fix-r1 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-fix-r1
+Redirect 301 /exterior-spaces/hypogean-fix-r12 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-fix-r12
+Redirect 301 /exterior-spaces/hypogean-fix-r3 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-fix-r3
+Redirect 301 /exterior-spaces/hypogean-fix-r6 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-fix-r6
+Redirect 301 /exterior-spaces/hypogean-fix-r9 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-fix-r9
+Redirect 301 /exterior-spaces/hypogean-fix-rc3 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-fix-rc3
+Redirect 301 /exterior-spaces/hypogean-linear-smlxl https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-linear-smlxl
+Redirect 301 /exterior-spaces/hypogean-tilt-ra-3 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/hypogean-tilt-ra-3
+
+Redirect 301 /exterior-spaces/shuays-fountain-f9 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-fountain-f9
+Redirect 301 /exterior-spaces/shuays-mini https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-mini
+Redirect 301 /exterior-spaces/shuays-r1 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-r1
+Redirect 301 /exterior-spaces/shuays-r12 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-r12
+Redirect 301 /exterior-spaces/shuays-r18 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-r18
+Redirect 301 /exterior-spaces/shuays-r3 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-r3
+Redirect 301 /exterior-spaces/shuays-r6 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-r6
+Redirect 301 /exterior-spaces/shuays-r9 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-r9
+Redirect 301 /exterior-spaces/shuays-surface-s3 https://lazurelighting.com/exterior-spaces/burial-and-underwater-lights/shuays-surface-s3
+
+Redirect 301 /exterior-spaces/kosmos-15 https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-15
+Redirect 301 /exterior-spaces/kosmos-18 https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-18
+Redirect 301 /exterior-spaces/kosmos-24 https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-24
+Redirect 301 /exterior-spaces/kosmos-36 https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-36
+Redirect 301 /exterior-spaces/kosmos-flexi-cove https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-flexi-cove
+Redirect 301 /exterior-spaces/kosmos-flexi-curtain https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-flexi-curtain
+Redirect 301 /exterior-spaces/kosmos-flexi-line https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-flexi-line
+Redirect 301 /exterior-spaces/kosmos-flexi-wash https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-flexi-wash
+Redirect 301 /exterior-spaces/kosmos-wide https://lazurelighting.com/exterior-spaces/linear-grazer-lights/kosmos-wide
+
+Redirect 301 /exterior-spaces/peculo-basket-sm https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-basket-sm
+Redirect 301 /exterior-spaces/peculo-baton-r https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-baton-r
+Redirect 301 /exterior-spaces/peculo-crown https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-crown
+Redirect 301 /exterior-spaces/peculo-effect https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-effect
+Redirect 301 /exterior-spaces/peculo-even https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-even
+Redirect 301 /exterior-spaces/peculo-hollow-bl https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-hollow-bl
+Redirect 301 /exterior-spaces/peculo-hollow-pl https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-hollow-pl
+Redirect 301 /exterior-spaces/peculo-parsol https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-parsol
+Redirect 301 /exterior-spaces/peculo-pole-duo https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-pole-duo
+Redirect 301 /exterior-spaces/peculo-pole-stem https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-pole-stem
+Redirect 301 /exterior-spaces/peculo-ring https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-ring
+Redirect 301 /exterior-spaces/peculo-smart https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-smart
+Redirect 301 /exterior-spaces/peculo-stand https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-stand
+Redirect 301 /exterior-spaces/peculo-step https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-step
+Redirect 301 /exterior-spaces/peculo-step-duo https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-step-duo
+Redirect 301 /exterior-spaces/peculo-stump https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-stump
+Redirect 301 /exterior-spaces/peculo-vintage https://lazurelighting.com/exterior-spaces/pole-and-bollard-lights/peculo-vintage
+
+Redirect 301 /exterior-spaces/marcopia-mini https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-mini
+Redirect 301 /exterior-spaces/marcopia-round-123 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-round-123
+Redirect 301 /exterior-spaces/marcopia-round-41 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-round-41
+Redirect 301 /exterior-spaces/marcopia-round-5 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-round-5
+Redirect 301 /exterior-spaces/marcopia-round-6 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-round-6
+Redirect 301 /exterior-spaces/marcopia-round-7 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-round-7
+Redirect 301 /exterior-spaces/marcopia-round-8 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-round-8
+Redirect 301 /exterior-spaces/marcopia-square-3 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-square-3
+Redirect 301 /exterior-spaces/marcopia-square-4 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-square-4
+Redirect 301 /exterior-spaces/marcopia-square-5 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-square-5
+Redirect 301 /exterior-spaces/marcopia-square-6 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-square-6
+Redirect 301 /exterior-spaces/marcopia-square-7 https://lazurelighting.com/exterior-spaces/facade-projector-lights/marcopia-square-7
+
+
+Redirect 301 /exterior-spaces/vibrance-duo-wall-round-sml https://lazurelighting.com/exterior-spaces/wall-lights/vibrance-duo-wall-round-sml
+Redirect 301 /exterior-spaces/vibrance-round-surface-smlxl https://lazurelighting.com/exterior-spaces/wall-lights/vibrance-round-surface-smlxl
+Redirect 301 /exterior-spaces/vibrance-square-surface-smlxl https://lazurelighting.com/exterior-spaces/wall-lights/vibrance-square-surface-smlxl
+Redirect 301 /exterior-spaces/vibrance-wall-duo-square-sml https://lazurelighting.com/exterior-spaces/wall-lights/vibrance-wall-duo-square-sml
+Redirect 301 /exterior-spaces/vibrance-wall-round-sml https://lazurelighting.com/exterior-spaces/wall-lights/vibrance-wall-round-sml
+Redirect 301 /exterior-spaces/vibrance-wall-square-sml https://lazurelighting.com/exterior-spaces/wall-lights/vibrance-wall-square-sml
+
+Redirect 301 /exterior-spaces/willow-cap https://lazurelighting.com/exterior-spaces/wall-lights/willow-cap
+Redirect 301 /exterior-spaces/willow-glow https://lazurelighting.com/exterior-spaces/wall-lights/willow-glow
+Redirect 301 /exterior-spaces/willow-plane https://lazurelighting.com/exterior-spaces/wall-lights/willow-plane
+Redirect 301 /exterior-spaces/willow-point-round https://lazurelighting.com/exterior-spaces/wall-lights/willow-point-round
+Redirect 301 /exterior-spaces/willow-point-square https://lazurelighting.com/exterior-spaces/wall-lights/willow-point-square
+Redirect 301 /exterior-spaces/willow-ramp https://lazurelighting.com/exterior-spaces/wall-lights/willow-ramp
+Redirect 301 /exterior-spaces/willow-round https://lazurelighting.com/exterior-spaces/wall-lights/willow-round
+Redirect 301 /exterior-spaces/willow-square https://lazurelighting.com/exterior-spaces/wall-lights/willow-square
+Redirect 301 /exterior-spaces/willow-streak-dome https://lazurelighting.com/exterior-spaces/wall-lights/willow-streak-dome
+Redirect 301 /exterior-spaces/willow-streak-flat https://lazurelighting.com/exterior-spaces/wall-lights/willow-streak-flat
+Redirect 301 /exterior-spaces/willow-wall-surface-r https://lazurelighting.com/exterior-spaces/wall-lights/willow-wall-surface-r
+Redirect 301 /exterior-spaces/willow-wall-surface-s https://lazurelighting.com/exterior-spaces/wall-lights/willow-wall-surface-s
+
+Redirect 301 /interior-spaces/joule-discreet-diffused-230 https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-discreet-diffused-230
+Redirect 301 /interior-spaces/joule-discreet-grid-230 https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-discreet-grid-230
+Redirect 301 /interior-spaces/joule-discreet-tilt-grid-230 https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-discreet-tilt-grid-230
+Redirect 301 /interior-spaces/joule-discreet-tube-500 https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-discreet-tube-500
+Redirect 301 /interior-spaces/joule-invi-diffused-ml https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-invi-diffused-ml
+Redirect 301 /interior-spaces/joule-invi-grid-sm https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-invi-grid-sm
+Redirect 301 /interior-spaces/joule-invi-grid-tilt-m https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-invi-grid-tilt-m
+Redirect 301 /interior-spaces/joule-invi-pendant-track https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-invi-pendant-track
+Redirect 301 /interior-spaces/joule-invi-recessed-track https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-invi-recessed-track
+Redirect 301 /interior-spaces/joule-invi-spot-sm https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-invi-spot-sm
+Redirect 301 /interior-spaces/joule-standard-diffused-ml https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-standard-diffused-ml
+Redirect 301 /interior-spaces/joule-standard-grid-ml https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-standard-grid-ml
+Redirect 301 /interior-spaces/joule-standard-grid-tilt-ml https://lazurelighting.com/interior-spaces/integrated-system-lights/joule-standard-grid-tilt-ml
+
+Redirect 301 /interior-spaces/acumis-deep-pendent https://lazurelighting.com/interior-spaces/linear-lights/acumis-deep-pendent
+Redirect 301 /interior-spaces/acumis-pendent https://lazurelighting.com/interior-spaces/linear-lights/acumis-pendent
+Redirect 301 /interior-spaces/flexum-side-bend-m-ip65-12x20 https://lazurelighting.com/interior-spaces/linear-lights/flexum-side-bend-m-ip65-12x20
+Redirect 301 /interior-spaces/flexum-side-bend-m-ip67-12x20 https://lazurelighting.com/interior-spaces/linear-lights/flexum-side-bend-m-ip67-12x20
+Redirect 301 /interior-spaces/flexum-side-bend-m-ip68-12x20 https://lazurelighting.com/interior-spaces/linear-lights/flexum-side-bend-m-ip68-12x20
+Redirect 301 /interior-spaces/flexum-side-bend-s-ip65-4x10 https://lazurelighting.com/interior-spaces/linear-lights/flexum-side-bend-s-ip65-4x10
+Redirect 301 /interior-spaces/flexum-side-bend-s-ip674x10 https://lazurelighting.com/interior-spaces/linear-lights/flexum-side-bend-s-ip674x10
+Redirect 301 /interior-spaces/flexum-top-bend-l-ip65-30x20 https://lazurelighting.com/interior-spaces/linear-lights/flexum-top-bend-l-ip65-30x20
+Redirect 301 /interior-spaces/flexum-top-bend-l-ip67-30x22 https://lazurelighting.com/interior-spaces/linear-lights/flexum-top-bend-l-ip67-30x22
+Redirect 301 /interior-spaces/flexum-top-bend-m-ip65-16x16 https://lazurelighting.com/interior-spaces/linear-lights/flexum-top-bend-m-ip65-16x16
+Redirect 301 /interior-spaces/flexum-top-bend-m-ip67-16x16 https://lazurelighting.com/interior-spaces/linear-lights/flexum-top-bend-m-ip67-16x16
+Redirect 301 /interior-spaces/flexum-top-bend-m-ip68-16x16 https://lazurelighting.com/interior-spaces/linear-lights/flexum-top-bend-m-ip68-16x16
+Redirect 301 /interior-spaces/flexum-top-bend-s-ip65-10x10 https://lazurelighting.com/interior-spaces/linear-lights/flexum-top-bend-s-ip65-10x10
+Redirect 301 /interior-spaces/flexum-top-bend-s-ip67-10x10 https://lazurelighting.com/interior-spaces/linear-lights/flexum-top-bend-s-ip67-10x10
+Redirect 301 /interior-spaces/flexum-top-bend-xl-ip65-50x25 https://lazurelighting.com/interior-spaces/linear-lights/flexum-top-bend-xl-ip65-50x25
+Redirect 301 /interior-spaces/svelte-24-l https://lazurelighting.com/interior-spaces/linear-lights/svelte-24-l
+Redirect 301 /interior-spaces/svelte-high-efficacy-1 https://lazurelighting.com/interior-spaces/linear-lights/svelte-high-efficacy-1
+Redirect 301 /interior-spaces/svelte-high-efficacy-2 https://lazurelighting.com/interior-spaces/linear-lights/svelte-high-efficacy-2
+Redirect 301 /interior-spaces/svelte-tunable https://lazurelighting.com/interior-spaces/linear-lights/svelte-tunable
+Redirect 301 /interior-spaces/trax-ceiling-deep-1 https://lazurelighting.com/interior-spaces/linear-lights/trax-ceiling-deep-1
+Redirect 301 /interior-spaces/trax-ceiling-m https://lazurelighting.com/interior-spaces/linear-lights/trax-ceiling-m
+Redirect 301 /interior-spaces/trax-ceiling-s https://lazurelighting.com/interior-spaces/linear-lights/trax-ceiling-s
+Redirect 301 /interior-spaces/trax-cove-asymmetric-l https://lazurelighting.com/interior-spaces/linear-lights/trax-cove-asymmetric-l
+Redirect 301 /interior-spaces/trax-cove-asymmetric-m https://lazurelighting.com/interior-spaces/linear-lights/trax-cove-asymmetric-m
+Redirect 301 /interior-spaces/trax-cove-uplight-l https://lazurelighting.com/interior-spaces/linear-lights/trax-cove-uplight-l
+Redirect 301 /interior-spaces/trax-cove-uplight-m https://lazurelighting.com/interior-spaces/linear-lights/trax-cove-uplight-m
+Redirect 301 /interior-spaces/trax-floor-curve-m https://lazurelighting.com/interior-spaces/linear-lights/trax-floor-curve-m
+Redirect 301 /interior-spaces/trax-floor-curve-s https://lazurelighting.com/interior-spaces/linear-lights/trax-floor-curve-s
+
+Redirect 301 /interior-spaces/allura-aperture-accent-sml https://lazurelighting.com/interior-spaces/downlights/allura-aperture-accent-sml
+Redirect 301 /interior-spaces/allura-aperture-fix-sml https://lazurelighting.com/interior-spaces/downlights/allura-aperture-fix-sml
+Redirect 301 /interior-spaces/allura-fix-sml https://lazurelighting.com/interior-spaces/downlights/allura-fix-sml
+Redirect 301 /interior-spaces/allura-neo-adjustable-trim-trimless-sml https://lazurelighting.com/interior-spaces/downlights/allura-neo-adjustable-trim-trimless-sml
+Redirect 301 /interior-spaces/allura-pinhole-sml https://lazurelighting.com/interior-spaces/downlights/allura-pinhole-sml
+Redirect 301 /interior-spaces/allura-tilt-sml https://lazurelighting.com/interior-spaces/downlights/allura-tilt-sml
+Redirect 301 /interior-spaces/hyeya-basix-2x2-1 https://lazurelighting.com/interior-spaces/downlights/hyeya-basix-2x2-1
+Redirect 301 /interior-spaces/hyeya-basic-deep-round-smlxl https://lazurelighting.com/interior-spaces/downlights/hyeya-basic-deep-round-smlxl
+Redirect 301 /interior-spaces/iskew-deep-mini-midi https://lazurelighting.com/interior-spaces/downlights/iskew-deep-mini-midi
+Redirect 301 /interior-spaces/iskew-fix https://lazurelighting.com/interior-spaces/downlights/iskew-fix
+Redirect 301 /interior-spaces/iskew-flat-fix https://lazurelighting.com/interior-spaces/downlights/iskew-flat-fix
+Redirect 301 /interior-spaces/tenace-quadran https://lazurelighting.com/interior-spaces/downlights/tenace-quadran
+Redirect 301 /interior-spaces/tenace-round-fix https://lazurelighting.com/interior-spaces/downlights/tenace-round-fix
+Redirect 301 /interior-spaces/tenace-square-fix https://lazurelighting.com/interior-spaces/downlights/tenace-square-fix
+
+Redirect 301 /interior-spaces/aurele-inward-mlxl https://lazurelighting.com/interior-spaces/pendant-and-suspension-lights/aurele-inward-mlxl
+Redirect 301 /interior-spaces/aurele-outward-mlxl https://lazurelighting.com/interior-spaces/pendant-and-suspension-lights/aurele-outward-mlxl
+Redirect 301 /interior-spaces/aurele-polo-pendant-smlxl https://lazurelighting.com/interior-spaces/pendant-and-suspension-lights/aurele-polo-pendant-smlxl
+Redirect 301 /interior-spaces/aurele-polo-surface-smlxl https://lazurelighting.com/interior-spaces/pendant-and-suspension-lights/aurele-polo-surface-smlxl
+Redirect 301 /interior-spaces/aurele-ring-pendant-mlxlxxl https://lazurelighting.com/interior-spaces/pendant-and-suspension-lights/aurele-ring-pendant-mlxlxxl
+Redirect 301 /interior-spaces/aurele-ring-surface-mlxlxxl https://lazurelighting.com/interior-spaces/pendant-and-suspension-lights/aurele-ring-surface-mlxlxxl
+
+
+Redirect 301 /projects https://lazurelighting.com/lighting-projects
+Redirect 301 /projects/commercial https://lazurelighting.com/lighting-projects/commercial
+Redirect 301 /project/commercial/boston-consultancy-group https://lazurelighting.com/lighting-projects/commercial/boston-consulting-group
+Redirect 301 /project/commercial/capital-mall https://lazurelighting.com/lighting-projects/commercial/capital-mall
+Redirect 301 /project/commercial/colliers-office https://lazurelighting.com/lighting-projects/commercial/colliers-office
+Redirect 301 /project/commercial/galleries-lafayette https://lazurelighting.com/lighting-projects/commercial/galeries-lafayette
+Redirect 301 /project/commercial/inorbit-mall-hyderebad https://lazurelighting.com/lighting-projects/commercial/inorbit-mall-hyderabad
+Redirect 301 /project/commercial/inorbit-mall https://lazurelighting.com/lighting-projects/commercial/inorbit-mall-mumbai
+Redirect 301 /project/commercial/prestige-office https://lazurelighting.com/lighting-projects/commercial/prestige-office
+Redirect 301 /project/commercial/siemens-office https://lazurelighting.com/lighting-projects/commercial/siemens-office
+
+Redirect 301 /projects/developers https://lazurelighting.com/lighting-projects/developers
+Redirect 301 /project/developers/aditya-birla https://lazurelighting.com/lighting-projects/developers/aditya-birla
+Redirect 301 /project/developers/army-navy-building https://lazurelighting.com/lighting-projects/developers/army-navy-building
+Redirect 301 /project/developers/brookfield-bluegrass https://lazurelighting.com/lighting-projects/developers/brookfield-bluegrass
+Redirect 301 /project/developers/brookfield-equinox-business-park https://lazurelighting.com/lighting-projects/developers/brookfield-equinox-business-park
+Redirect 301 /project/developers/k-raheja-artesia https://lazurelighting.com/lighting-projects/developers/k-raheja-artesia
+Redirect 301 /project/developers/oberoi-westinn https://lazurelighting.com/lighting-projects/developers/oberoi-westinn
+Redirect 301 /project/developers/rustomjee-pali-parishram https://lazurelighting.com/lighting-projects/developers/rustomjee-pali-parishram
+Redirect 301 /project/developers/sattva https://lazurelighting.com/lighting-projects/developers/sattva
+
+Redirect 301 /projects/hospitality https://lazurelighting.com/lighting-projects/hospitality
+Redirect 301 /project/hospitality/gorbandh-palace https://lazurelighting.com/lighting-projects/hospitality/gorbandh-palace
+Redirect 301 /project/hospitality/hyatt https://lazurelighting.com/lighting-projects/hospitality/hyatt
+Redirect 301 /project/hospitality/itc-colombo https://lazurelighting.com/lighting-projects/hospitality/itc-colombo
+Redirect 301 /project/hospitality/itc-grand https://lazurelighting.com/lighting-projects/hospitality/itc-grand
+Redirect 301 /project/hospitality/jw-mariott https://lazurelighting.com/lighting-projects/hospitality/jw-mariott
+Redirect 301 /project/hospitality/sheraton-edison https://lazurelighting.com/lighting-projects/hospitality/sheraton-edison
+Redirect 301 /project/hospitality/sheraton-whitefield https://lazurelighting.com/lighting-projects/hospitality/sheraton-whitefield
+Redirect 301 /project/hospitality/six-senses https://lazurelighting.com/lighting-projects/hospitality/six-senses
+Redirect 301 /project/hospitality/taj https://lazurelighting.com/lighting-projects/hospitality/taj
+Redirect 301 /project/hospitality/taj-coral-reef https://lazurelighting.com/lighting-projects/hospitality/taj-coral-reef
+
+Redirect 301 /projects/retail https://lazurelighting.com/lighting-projects/retail
+Redirect 301 /project/retail/aditya-birla-the-collective https://lazurelighting.com/lighting-projects/retail/aditya-birla-the-collective
+Redirect 301 /project/retail/inox-pvr https://lazurelighting.com/lighting-projects/retail/inox-pvr
+Redirect 301 /project/retail/ivar-boutique https://lazurelighting.com/lighting-projects/retail/ivar-boutique
+Redirect 301 /project/retail/ivar-boutique-new-york https://lazurelighting.com/lighting-projects/retail/ivar-boutique-new-york
+Redirect 301 /project/retail/starbucks https://lazurelighting.com/lighting-projects/retail/starbucks
+Redirect 301 /project/retail/wework https://lazurelighting.com/lighting-projects/retail/wework
+
+
+
+Redirect 301 /lighting-interior-landscapes-inaccessible-to-daylight-a-lazure-study https://lazurelighting.com/articles/lighting-interior-landscapes-inaccessible-to-daylight-a-lazure-study
+Redirect 301 /articles?page=1 https://lazurelighting.com/articles/page1
+Redirect 301 /a-revolution-in-neurosurgery-through-fluorescein-guided-technology https://lazurelighting.com/articles/a-revolution-in-neurosurgery-through-fluorescein-guided-technology
+Redirect 301 /careers https://lazurelighting.com/careers-at-lazure
+Redirect 301 /circadian-rythm https://lazurelighting.com/articles/circadian-rhythm
+Redirect 301 /built-to-suit https://lazurelighting.com/custom-lighting-solutions
+Redirect 301 /light-applications https://lazurelighting.com/lighting-applications
+Redirect 301 /applications/exterior-spaces https://lazurelighting.com/lighting-applications/exterior-spaces
+Redirect 301 /applications/interior-spaces https://lazurelighting.com/lighting-applications/interior-spaces
+Redirect 301 /engineering-expertise https://lazurelighting.com/lighting-engineering-expertise
+Redirect 301 /project-gallery https://lazurelighting.com/lighting-project-gallery
+
+RewriteEngine On
+
+# =========================
+# light_application rules
+# =========================
+
+RewriteCond %{QUERY_STRING} ^light_application=accent-lighting$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?application=accent-lighting [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^light_application=ambient-lighting$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?application=ambient-lighting [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^light_application=facade$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?application=facade-lighting [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^light_application=general-lighting$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?application=general-lighting [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^light_application=indirect-lighting$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?application=indirect-lighting [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^light_application=landscape$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?application=landscape-lighting [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^light_application=task-lighting$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?application=task-lighting [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^light_application=underwater$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?application=underwater-lighting [R=301,L]
+
+
+# =========================
+# Generic product finder rule LAST
+# =========================
+
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder? [R=301,L]
+
+# category redirects
+RewriteCond %{QUERY_STRING} ^category=exterior-spaces$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-applications/exterior-spaces? [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=interior-spaces$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-applications/interior-spaces? [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=burials-and-underwater$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=burial-and-underwater-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=integrated-systems$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=integrated-system-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=linear-grazers$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=linear-grazer-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=linears$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=linear-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=pole-and-bollards$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=pole-and-bollard-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=projectors$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=facade-projector-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=suspensions-and-creations$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=pendant-and-suspension-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=track-mounted$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=track-mounted-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=wall-lights$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=wall-lights [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=downlight$
+RewriteRule ^product-finder$ https://lazurelighting.com/lighting-product-finder?category=downlights [R=301,L]
+
+# Redirect 301 /products https://lazurelighting.com/lighting-products
+
+
+# Exclude AJAX filter route
+RewriteCond %{REQUEST_URI} !^/products/filter$ [NC]
+
+# Redirect only /products to /lighting-products
+RewriteRule ^products$ https://lazurelighting.com/lighting-products [R=301,L]
+
+# Redirect requests to public folder
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ public/$1 [L]
+
+</IfModule>
+
+
+# === improve page speed ===
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
+</IfModule>
+
+# ====== Enable Brotli Compression
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css application/json application/javascript
+</IfModule>
+
+
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php8_module>
+   php_flag display_errors Off
+   php_value max_execution_time 10000
+   php_value max_input_time 120
+   php_value max_input_vars 2000
+   php_value memory_limit 256M
+   php_value post_max_size 1000M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php82"
+   php_value upload_max_filesize 8M
+   php_flag zlib.output_compression On
+</IfModule>
+<IfModule lsapi_module>
+   php_flag display_errors Off
+   php_value max_execution_time 10000
+   php_value max_input_time 120
+   php_value max_input_vars 2000
+   php_value memory_limit 256M
+   php_value post_max_size 1000M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php82"
+   php_value upload_max_filesize 8M
+   php_flag zlib.output_compression On
+</IfModule>
+# END cPanel-generated php ini directives, do not edit
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php83” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

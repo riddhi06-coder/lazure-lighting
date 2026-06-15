@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /login
+Disallow: /api/
+Disallow: /vendor/
+Disallow: /storage/
+
+Sitemap: https://lazurelighting.com/sitemap.xml
